@@ -24,7 +24,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="aplog">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -37,7 +37,7 @@
      <string>Application Log</string>
     </property>
    </widget>
-   <widget class="QListView" name="listView">
+   <widget class="QListView" name="rlvbox">
     <property name="geometry">
      <rect>
       <x>580</x>
@@ -47,7 +47,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="title">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -60,7 +60,7 @@
      <string>C! IDE</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="stopbtn">
     <property name="geometry">
      <rect>
       <x>510</x>
@@ -73,7 +73,7 @@
      <string>Stop</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="runbtn">
     <property name="geometry">
      <rect>
       <x>510</x>
@@ -86,7 +86,7 @@
      <string>Run</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="clearbtn">
     <property name="geometry">
      <rect>
       <x>520</x>
@@ -99,7 +99,7 @@
      <string>Clear</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="rlv">
     <property name="geometry">
      <rect>
       <x>640</x>
@@ -112,7 +112,7 @@
      <string>RAM LIVE VIEW</string>
     </property>
    </widget>
-   <widget class="QListView" name="listView_2">
+   <widget class="QListView" name="stdoutbox">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -122,7 +122,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QListView" name="listView_3">
+   <widget class="QListView" name="aplogbox">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -132,7 +132,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="stdout">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -145,7 +145,7 @@
      <string>STDOUT</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="nextbtn">
     <property name="geometry">
      <rect>
       <x>510</x>
