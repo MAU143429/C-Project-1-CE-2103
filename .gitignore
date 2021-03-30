@@ -205,3 +205,10 @@ compile_commands.json
 *creator.user*
 
 # End of https://www.toptal.com/developers/gitignore/api/linux,clion,c++,qt
+.idea/discord.xml
+.idea/misc.xml
+C_IDE/.idea/C_IDE.iml
+C_IDE/.idea/misc.xml
+C_IDE/.idea/modules.xml
+C_IDE/.idea/vcs.xml
+C_IDE/.idea/workspace.xml
