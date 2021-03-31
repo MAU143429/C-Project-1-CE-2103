@@ -2,6 +2,8 @@
 #define GUI_C_H
 
 #include <QMainWindow>
+#include <QtCore>
+#include<QtGui>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class GUI_C; }
@@ -14,6 +16,8 @@ class GUI_C : public QMainWindow
 public:
     GUI_C(QWidget *parent = nullptr);
     ~GUI_C();
+    int cont = 1;
+
 
 private slots:
 
@@ -25,7 +29,12 @@ private slots:
 
     void on_clearbtn_clicked();
 
+    
+
+
+
 private:
     Ui::GUI_C *ui;
+    QString mFile;
 };
 #endif // GUI_C_H
