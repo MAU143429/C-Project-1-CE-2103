@@ -36,6 +36,9 @@
       <height>381</height>
      </rect>
     </property>
+    <property name="placeholderText">
+     <string>ENTER CODE </string>
+    </property>
    </widget>
    <widget class="QLabel" name="rlv">
     <property name="geometry">
