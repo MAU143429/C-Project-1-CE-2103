@@ -5,16 +5,17 @@
 
 #include "Integer.h"
 #include <string>
+#include <iostream>
 
 
 using namespace std;
 
 
-const string Integer::getName() const {
+string Integer::getName() const {
     return name;
 }
 
-void Integer::setName(const string &name) {
+void Integer::setName(string name) {
     Integer::name = name;
 }
 
@@ -33,3 +34,5 @@ int Integer::getCount() const {
 void Integer::setCount(int count) {
     Integer::count = count;
 }
+
+

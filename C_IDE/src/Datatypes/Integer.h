@@ -4,10 +4,11 @@
 #ifndef C_IDE_INTEGER_H
 #define C_IDE_INTEGER_H
 #include <string>
+#include "Datatype.h"
 
 using namespace std;
 
-class Integer {
+class Integer: public Datatype {
 private:
     string name;
     int value;
@@ -18,9 +19,9 @@ public:
         this->value = value;
         this->count = count;
     }
-    const string getName() const;
+    string getName() const;
 
-    void setName(const string &name);
+    void setName(string name);
 
     int getValue() const;
 
@@ -29,7 +30,6 @@ public:
     int getCount() const;
 
     void setCount(int count);
-
 
 };
 
