@@ -6,7 +6,26 @@
 #define C_IDE_LONG_H
 
 
-class Long {
+#include "Datatype.h"
+
+class Long: public Datatype  {
+private:
+    string name;
+    float value;
+    int count;
+
+public:
+    string getName() const override;
+
+    void setName(string name) override;
+
+    int getCount() const override;
+
+    void setCount(int count) override;
+
+    float getValue() const;
+
+    void setValue(float value);
 
 };
 
