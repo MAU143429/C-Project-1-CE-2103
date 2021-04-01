@@ -8,7 +8,7 @@
 
 class JSON_Prueba {
 public:
-    int JSON();
+    void JSON();
 };
 
 

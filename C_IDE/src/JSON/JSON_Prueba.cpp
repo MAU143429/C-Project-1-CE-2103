@@ -10,7 +10,7 @@
 using namespace rapidjson;
 using namespace std;
 
-int JSON_Prueba::JSON() {
+void JSON_Prueba::JSON() {
     StringBuffer s;
     Writer<StringBuffer> writer(s);
 
