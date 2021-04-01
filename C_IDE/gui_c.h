@@ -29,9 +29,7 @@ private slots:
 
     void on_clearbtn_clicked();
 
-    
-
-
+    std::string translate_code();
 
 private:
     Ui::GUI_C *ui;
