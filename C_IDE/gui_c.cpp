@@ -6,7 +6,9 @@
 
 using namespace std;
 
-string line , atline, codeline;
+string line;
+
+
 
 GUI_C::GUI_C(QWidget *parent)
     : QMainWindow(parent)
@@ -18,6 +20,7 @@ GUI_C::GUI_C(QWidget *parent)
 GUI_C::~GUI_C()
 {
     delete ui;
+
 }
 
 void GUI_C::on_runbtn_clicked()
@@ -29,6 +32,7 @@ void GUI_C::on_runbtn_clicked()
    ifstream RFile("code.txt");
    getline(RFile,line);
    cout << line << endl;
+   translate_code();
    RFile.close();
    cont += 1;
 
@@ -45,20 +49,10 @@ void GUI_C::on_nextbtn_clicked()
     ifstream MyReadFile("code.txt");
     for(int i = 1; i <= cont ; ++i){
         getline (MyReadFile, line);
-        //translate_code();
-
+        translate_code();
     }
-    if(line == atline){
-        cout<< "LAST LINE"<< endl;
-    }else{
-        cout << line << endl;
-        if(line.find("int") == true){
-            cout<<"EN EL CODIGO HAY UN INT"<< endl;
-
-        }
-        atline = line;
-        cont += 1;
-    }
+    cout << line << endl;
+    cont += 1;
     MyReadFile.close();
 }
 
@@ -67,11 +61,38 @@ void GUI_C::on_clearbtn_clicked()
     ui->textEdit->clear();
 }
 
-string GUI_C::translate_code() {
+void GUI_C::translate_code() {
 
-    if(line == "int"){
-        cout<<"EN EL CODIGO HAY UN INT"<< endl;
 
+    size_t found = line.find("Integer");
+    if (found != string::npos){
+        pos = (found + 8);
+        while(next != ";"){
+
+            prev = line[pos];
+            newint.append(prev);
+            next = line[pos+1];
+            nt1 = next[0];
+            if(isspace(nt1)){
+                break;
+            }
+            pos = pos + 1;
+        }
+
+        cout << "NOMBRE DE LA VARIABLE A GUARDAR" << " " << newint << endl;
+    }
+
+    size_t found1 = line.find("float");
+    if (found1 != string::npos){
+        pos1 = (found1 + 6);
+        while(next1 != ";"){
+
+            prev1 = line[pos];
+            newfloat.append(prev);
+            next1 = line[pos+1];
+            pos1 = pos + 1;
+        }
+        cout << "NOMBRE DE LA VARIABLE A GUARDAR" << " " << newfloat << endl;
     }
 
 }

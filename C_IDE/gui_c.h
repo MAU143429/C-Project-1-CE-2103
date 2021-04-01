@@ -29,10 +29,12 @@ private slots:
 
     void on_clearbtn_clicked();
 
-    std::string translate_code();
+    void translate_code();
 
 private:
     Ui::GUI_C *ui;
     QString mFile;
+    int pos , pos1, nt1;
+    std::string newint , prev, next, newfloat,prev1, next1;
 };
 #endif // GUI_C_H
