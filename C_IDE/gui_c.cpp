@@ -6,7 +6,7 @@
 
 using namespace std;
 
-string line , atline;
+string line , atline, codeline;
 
 GUI_C::GUI_C(QWidget *parent)
     : QMainWindow(parent)
@@ -45,12 +45,17 @@ void GUI_C::on_nextbtn_clicked()
     ifstream MyReadFile("code.txt");
     for(int i = 1; i <= cont ; ++i){
         getline (MyReadFile, line);
+        //translate_code();
 
     }
     if(line == atline){
         cout<< "LAST LINE"<< endl;
     }else{
         cout << line << endl;
+        if(line.find("int") == true){
+            cout<<"EN EL CODIGO HAY UN INT"<< endl;
+
+        }
         atline = line;
         cont += 1;
     }
@@ -60,4 +65,13 @@ void GUI_C::on_nextbtn_clicked()
 void GUI_C::on_clearbtn_clicked()
 {
     ui->textEdit->clear();
+}
+
+string GUI_C::translate_code() {
+
+    if(line == "int"){
+        cout<<"EN EL CODIGO HAY UN INT"<< endl;
+
+    }
+
 }
