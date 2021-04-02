@@ -32,7 +32,7 @@ set(PROJECT_SOURCES
         gui_c.cpp
         gui_c.h
         gui_c.ui
-        src/Datatypes/Integer.cpp src/Datatypes/Integer.h src/Datatypes/Long.cpp src/Datatypes/Long.h src/Datatypes/Char.cpp src/Datatypes/Char.h src/Datatypes/Float.cpp src/Datatypes/Float.h src/Datatypes/Double.cpp src/Datatypes/Double.h src/Util/JSON_Prueba.cpp src/Util/JSON_Prueba.h src/Datatypes/Datatype.h src/DataStructure/SimplyLinkedLIst.cpp src/DataStructure/SimplyLinkedLIst.h Translate_Code.h src/TypeConversion/ObjectToJSON.h src/TypeConversion/TypeMessage.cpp src/TypeConversion/TypeMessage.h)
+        src/Datatypes/Integer.cpp src/Datatypes/Integer.h src/Datatypes/Long.cpp src/Datatypes/Long.h src/Datatypes/Char.cpp src/Datatypes/Char.h src/Datatypes/Float.cpp src/Datatypes/Float.h src/Datatypes/Double.cpp src/Datatypes/Double.h src/Datatypes/Datatype.h src/TypeConversion/ObjectToJSON.h src/TypeConversion/TypeMessage.cpp src/TypeConversion/TypeMessage.h src/DataStructure/SimplyLinkedLIst.h )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(C_IDE
