@@ -74,7 +74,7 @@ public:
             }
         }
     }
-/
+
     void append(T element) {
         auto *newElement = (Node<T> *) (malloc(sizeof(Node<T>)));
         newElement = new(newElement) Node<T>(element);
@@ -134,7 +134,7 @@ public:
     void delIndex(int index) {
 
     }
-    /
+
     void delHead() {
         this->del(this->head->getValue());
     }
