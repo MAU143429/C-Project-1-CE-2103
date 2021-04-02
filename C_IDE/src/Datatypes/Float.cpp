@@ -20,10 +20,10 @@ void Float::setCount(int count) {
     Datatype::setCount(count);
 }
 
-float Float::getValue() const {
-    return value;
+string Float::getValue() const {
+    return Datatype::getValue();
 }
 
-void Float::setValue(float value) {
-    Float::value = value;
+void Float::setValue(string value) {
+    Datatype::setValue(value);
 }

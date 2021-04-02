@@ -11,7 +11,7 @@
 class Long: public Datatype  {
 private:
     string name;
-    float value;
+    string value;
     int count;
 
 public:
@@ -23,9 +23,10 @@ public:
 
     void setCount(int count) override;
 
-    float getValue() const;
+    string getValue() const override;
 
-    void setValue(float value);
+    void setValue(string value) override;
+
 
 };
 

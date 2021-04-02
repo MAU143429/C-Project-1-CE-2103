@@ -20,10 +20,10 @@ void Long::setCount(int count) {
     Datatype::setCount(count);
 }
 
-float Long::getValue() const {
-    return value;
+string Long::getValue() const {
+    return Datatype::getValue();
 }
 
-void Long::setValue(float value) {
-    Long::value = value;
+void Long::setValue(string value) {
+    Datatype::setValue(value);
 }

@@ -11,25 +11,26 @@ using namespace std;
 class Integer: public Datatype {
 private:
     string name;
-    int value;
+    string value;
     int count;
 public:
-    Integer(string name, int value, int count){
+    Integer(string name, string value){
         this->name = name;
         this->value = value;
         this->count = count;
+        this->count = 1;
     }
     string getName() const;
 
     void setName(string name);
 
-    int getValue() const;
-
-    void setValue(int value);
-
     int getCount() const;
 
     void setCount(int count);
+
+    string getValue() const override;
+
+    void setValue(string value) override;
 
 };
 

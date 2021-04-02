@@ -20,10 +20,10 @@ void Char::setCount(int count) {
     Datatype::setCount(count);
 }
 
-char Char::getValue() const {
-    return value;
+string Char::getValue() const {
+    return Datatype::getValue();
 }
 
-void Char::setValue(char value) {
-    Char::value = value;
+void Char::setValue(string value) {
+    Datatype::setValue(value);
 }
