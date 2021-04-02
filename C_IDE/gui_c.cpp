@@ -67,11 +67,12 @@ void GUI_C::on_clearbtn_clicked()
     ui->textEdit->clear();
 }
 
-void GUI_C::classify_datatype(){
 
+void GUI_C::classify_datatype(){
+/**
     if(line.find("Integer") != true ) {
 
-        translate_code(8,"Interger");
+        translate_code(8,"Integer");
 
         if(varvalues == "0"){
             cout << "SE VA A CREAR INT DE NOMBRE" << " " << newvar << " " << "AL CUAL NO SE LE ASIGNO VALOR POR LO QUE SE INICIALIZA EN 0" << endl;
@@ -115,11 +116,12 @@ void GUI_C::classify_datatype(){
         }else{
             cout << "SE VA A CREAR CHAR DE NOMBRE" << " " << newvar << " " << "CON UN VALOR DE" << " " << varvalues << endl;
         }
-    }
+    }*/
 }
 
-string GUI_C::translate_code(int a, string type) {
 
+string GUI_C::translate_code(int a, string type) {
+/**
         size_t found = line.find(type);
         if (found != string::npos){
             pos = (found + a);
@@ -147,7 +149,7 @@ string GUI_C::translate_code(int a, string type) {
                 pos = pos + 1;
             }
             return(newvar,varvalues);
-        }
+        }*/
     }
 
 
