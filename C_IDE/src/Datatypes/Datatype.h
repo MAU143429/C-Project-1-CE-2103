@@ -5,7 +5,7 @@
 #ifndef C_IDE_DATATYPE_H
 #define C_IDE_DATATYPE_H
 #include <string>
-#endif //C_IDE_DATATYPE_H
+
 using namespace std;
 
 class Datatype{
@@ -57,3 +57,5 @@ public:
         Datatype::value = value;
     }
 };
+
+#endif //C_IDE_DATATYPE_H
