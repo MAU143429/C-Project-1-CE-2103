@@ -19,11 +19,11 @@ void Integer::setName(string name) {
     Integer::name = name;
 }
 
-int Integer::getValue() const {
+string Integer::getValue() const {
     return value;
 }
 
-void Integer::setValue(int value) {
+void Integer::setValue(string value) {
     Integer::value = value;
 }
 
@@ -34,5 +34,6 @@ int Integer::getCount() const {
 void Integer::setCount(int count) {
     Integer::count = count;
 }
+
 
 

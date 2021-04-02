@@ -13,7 +13,7 @@ using namespace std;
 class Float: public Datatype {
 private:
     string name;
-    float value;
+    string value;
     int count;
 public:
     string getName() const override;
@@ -24,14 +24,9 @@ public:
 
     void setCount(int count) override;
 
-    float getValue() const;
+    string getValue() const override;
 
-    void setValue(float value);
-
-private:
-
-public:
-
+    void setValue(string value) override;
 
 };
 
