@@ -11,7 +11,7 @@ using namespace std;
 class Char: public Datatype {
 private:
     string name;
-    char value;
+    string value;
     int count;
 
 public:
@@ -28,9 +28,9 @@ public:
 
     void setCount(int count) override;
 
-    char getValue() const;
+    string getValue() const override;
 
-    void setValue(char value);
+    void setValue(string value) override;
 
 };
 

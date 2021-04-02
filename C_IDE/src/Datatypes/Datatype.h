@@ -11,6 +11,7 @@ using namespace std;
 class Datatype{
 private:
     string name;
+    string value;
     int count;
 public:
     /**
@@ -43,5 +44,16 @@ public:
      */
     virtual void setCount(int count) {
         Datatype::count = count;
+    }
+    /**
+     * @brief
+     * @return
+     */
+    virtual string getValue() const {
+        return value;
+    }
+
+    virtual void setValue( string value) {
+        Datatype::value = value;
     }
 };

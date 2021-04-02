@@ -20,10 +20,10 @@ void Double::setCount(int count) {
     Datatype::setCount(count);
 }
 
-double Double::getValue() const {
-    return value;
+string Double::getValue() const {
+    return Datatype::getValue();
 }
 
-void Double::setValue(double value) {
-    Double::value = value;
+void Double::setValue(string value) {
+    Datatype::setValue(value);
 }

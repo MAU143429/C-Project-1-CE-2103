@@ -13,7 +13,7 @@ using namespace std;
 class Double: public Datatype {
 private:
     string name;
-    double value;
+    string value;
     int count;
 public:
     string getName() const override;
@@ -24,9 +24,10 @@ public:
 
     void setCount(int count) override;
 
-    double getValue() const;
+    string getValue() const override;
 
-    void setValue(double value);
+    void setValue(string value) override;
+
 };
 
 
