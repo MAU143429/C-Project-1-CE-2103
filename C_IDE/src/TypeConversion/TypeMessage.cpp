@@ -28,10 +28,21 @@ void TypeMessage::setAction(const string &action) {
     TypeMessage::action = action;
 }
 
-const string &TypeMessage::getJson() const {
-    return json;
+const string &TypeMessage::getName() const {
+    return name;
 }
 
-void TypeMessage::setJson(const string &json) {
-    TypeMessage::json = json;
+void TypeMessage::setName(const string &name) {
+    TypeMessage::name = name;
 }
+
+const string &TypeMessage::getValue() const {
+    return value;
+}
+
+void TypeMessage::setValue(const string &value) {
+    TypeMessage::value = value;
+}
+
+
+

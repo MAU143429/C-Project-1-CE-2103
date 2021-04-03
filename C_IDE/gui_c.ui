@@ -53,26 +53,6 @@
      <string>RAM LIVE VIEW</string>
     </property>
    </widget>
-   <widget class="QListView" name="rlvbox">
-    <property name="geometry">
-     <rect>
-      <x>710</x>
-      <y>30</y>
-      <width>256</width>
-      <height>611</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QListView" name="stdoutbox">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>430</y>
-      <width>621</width>
-      <height>101</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="runbtn">
     <property name="geometry">
      <rect>
@@ -151,13 +131,33 @@
      <string>STDOUT</string>
     </property>
    </widget>
-   <widget class="QListWidget" name="aplogbox">
+   <widget class="QTextBrowser" name="stdoutbox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>430</y>
+      <width>621</width>
+      <height>101</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="aplogbox">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>560</y>
       <width>631</width>
       <height>81</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="rvbox">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>30</y>
+      <width>256</width>
+      <height>611</height>
      </rect>
     </property>
    </widget>

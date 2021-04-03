@@ -5,11 +5,14 @@
 #include <src/TypeConversion/ObjectToJSON.h>
 #include <string>
 #include <iostream>
+#include "Translate_Code.h"
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
+
+
     auto *message =  new TypeMessage();
 
     message->setType("Integer");

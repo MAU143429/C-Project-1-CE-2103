@@ -13,7 +13,8 @@ private:
     string type;
     string modifyValue;
     string action;
-    string json;
+    string name;
+    string value;
 public:
 
     const string &getType() const;
@@ -28,10 +29,13 @@ public:
 
     void setAction(const string &action);
 
-    const string &getJson() const;
+    const string &getName() const;
 
-    void setJson(const string &json);
+    void setName(const string &name);
 
+    const string &getValue() const;
+
+    void setValue(const string &value);
 
 };
 

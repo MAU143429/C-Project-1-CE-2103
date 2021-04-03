@@ -38,14 +38,14 @@ public:
 };
 
 template<typename T>
-class SimplyLinkedLIst {
+class SimplyLinkedList {
 
 public:
     Node<T> *head = nullptr;
     Node<T> *tail = nullptr;
     int len;
 
-    SimplyLinkedLIst() {
+    SimplyLinkedList() {
         this->head = NULL;
         this->len = 0;
         this->tail = NULL;
