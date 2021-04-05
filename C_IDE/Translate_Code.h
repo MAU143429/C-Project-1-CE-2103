@@ -12,6 +12,7 @@
 #include "gui_c.h"
 #include "iostream"
 
+
 using namespace std;
 
 static const auto INTEGER_KEY = "Integer";
@@ -79,13 +80,19 @@ public:
             }
             cont++;
         }
-        output->append(note);
+        //output->append(note);
         output->show();
 
         return *output;
     }
 
     static void Decodify_line(SimplyLinkedList<string> stringlist) {
+        int ultpos = (stringlist.getLen()-1);
+        if (stringlist.get(ultpos) != ";"){
+            std::cout << "\n FATAL ERROR " << ";" << " WASN'T DETECTED\n";
+
+            return;
+        }
         auto *message = new TypeMessage();
         if (Type_list->boolSearch(stringlist.get(0))) {
             message->setType(stringlist.get(0));
@@ -99,7 +106,7 @@ public:
                         message->setValue(stringlist.get(3));
 
                     } else {
-                        cout << "\nERROR CON EL TIPO DE DATO PARA ASIGNAR\n";
+
 
                     }
                 } else {
