@@ -44,5 +44,13 @@ void TypeMessage::setValue(const string &value) {
     TypeMessage::value = value;
 }
 
+const string &TypeMessage::getSize() const {
+    return size;
+}
+
+void TypeMessage::setSize(const string &size) {
+    TypeMessage::size = size;
+}
+
 
 

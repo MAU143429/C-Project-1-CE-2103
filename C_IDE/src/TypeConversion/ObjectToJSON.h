@@ -18,6 +18,7 @@ public:
     string static NewMessageToJSON(TypeMessage *message){
         const string& action = message->getAction();
         const string& type = message->getType();
+        const string& size = message->getSize();
         const string& name = message->getName();
         const string& value = message->getValue();
 
@@ -31,6 +32,9 @@ public:
 
         writer.Key("type");
         writer.String(type.c_str());
+
+        writer.Key("size");
+        writer.String(size.c_str());
 
         writer.Key("name");
         writer.String(name.c_str());

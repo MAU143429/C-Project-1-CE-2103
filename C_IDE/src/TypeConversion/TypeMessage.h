@@ -15,7 +15,11 @@ private:
     string action;
     string name;
     string value;
+    string size;
 public:
+    const string &getSize() const;
+
+    void setSize(const string &size);
 
     const string &getType() const;
 
