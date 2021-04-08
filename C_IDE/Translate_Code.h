@@ -11,6 +11,7 @@
 #include "src/TypeConversion/ObjectToJSON.h"
 #include "gui_c.h"
 #include "iostream"
+#include "sstream"
 
 
 using namespace std;
@@ -37,6 +38,7 @@ static const auto MULTI_OPERATOR = "*";
 static SimplyLinkedList<string> *Type_list;
 static SimplyLinkedList<string> *Size_list;
 static SimplyLinkedList<string> *Operator_list;
+static SimplyLinkedList<string> *Operator_vlist;
 
 class Translate_Code {
 
@@ -61,7 +63,7 @@ public:
                     output->append(note);
                     note.clear();
                 }
-            } else if (c == ';' or Operator_list->boolSearch(s) == true){
+            } else if (c == ';' or Operator_vlist->boolSearch(s) == true){
                 if(!note.empty()){
                     output->append(note);
                     note.clear();
@@ -100,10 +102,16 @@ public:
             message->setAction("CREATE");
             if (!Verify_name(stringlist.get(1)) and !Type_list->boolSearch(stringlist.get(1))) {
                     message->setName(stringlist.get(1));
-                if (Operator_list->boolSearch(stringlist.get(2)) == true) {
+                if (Operator_vlist->boolSearch(stringlist.get(2)) == true) {
 
                     if (!Type_list->boolSearch(stringlist.get(3))) {
-                        message->setValue(stringlist.get(3));
+                        if(Verify_Type(stringlist.get(0),stringlist.get(3),Operator_list) == true){
+                            message->setValue(stringlist.get(3));
+                        }else{
+                            std::cout << "\n ERROR: INGRESE UN VALOR ADECUADO AL TIPO DE DATO QUE DESEA CREAR\n";
+
+                        }
+
 
                     } else {
 
@@ -159,12 +167,106 @@ public:
             }
         }
     }
+
+    static bool Point_search(string txt) {
+
+        int counter = 0;
+        char character;
+
+
+        while (counter < txt.length()) {
+            character = txt[counter];
+            if (character == '.') {
+                return true;
+            } else {
+                character = ' ';
+            }
+            counter++;
+        }
+        return false;
+    }
+    static bool Verify_Type(string type, string value, SimplyLinkedList<string> *Operator) {
+
+        std::stringstream ss;
+
+        if (Operator_Verify(value) == true) {
+            cout << "\nENVIANDO DATO AL SERVIDOR PARA QUE SEA ANALIZADO\n" << endl;
+        } else {
+            //int and long method method
+            if (type == "Integer" or type == "Long") {
+                long typedata;
+                ss << value;
+                ss >> typedata;
+
+                if (typedata == 0 or Point_search(value) == true ) {
+                    cout << "\nEL TIPO DE DATO INGRESADO NO ES UN\n" << type << endl;
+
+                } else if (typedata >= -32768 and typedata <= 32767) {
+                    if (type == "Integer") {
+                        return true;
+                    } else if(type == "Long") {
+                        return true;
+                    }else{
+                        return false;
+                    }
+                } else if (typedata >= -2147483648 and typedata <= 2147483647) {
+                    if (type == "Long") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    cout << "\nTIPO DE DATO NO ENCONTRADO\n" << endl;
+                }
+            }
+
+            //float an double method
+            if (type == "Float" or type == "Double") {
+
+            }
+
+            //char method
+            if (type == "Char") {
+
+            }
+
+
+        }
+
+    }
+
+    static bool Operator_Verify(string value){
+        std::stringstream mm;
+        int counter1 = 0;
+        char character1;
+        string output;
+
+        while (counter1 < value.length()) {
+            character1 = value[counter1];
+            mm << character1;
+            mm >> output;
+            cout << output << endl;
+            if (Operator_list->boolSearch(output)) {
+                return true;
+            } else {
+                //character1 = ' ';
+                output.clear();
+                mm.clear();
+            }
+            counter1++;
+        }
+        return false;
+    }
+
+
+
 public:
 
     void static compile(string line) {
-        Type_list = new SimplyLinkedList<string>();
-        Operator_list = new SimplyLinkedList<string>();
-        Size_list = new SimplyLinkedList<string>();
+         Type_list = new SimplyLinkedList<string>();
+         Operator_list = new SimplyLinkedList<string>();
+        Operator_vlist = new SimplyLinkedList<string>();
+         Size_list = new SimplyLinkedList<string>();
         Type_list->append(INTEGER_KEY);
         Type_list->append(FLOAT_KEY);
         Type_list->append(DOUBLE_KEY);
@@ -177,12 +279,12 @@ public:
         Size_list->append(DOUBLE_SIZE);
         Size_list->append(CHAR_SIZE);
         Size_list->append(LONG_SIZE);
-        Operator_list->append(EQUAL_OPERATOR);
+        Operator_vlist->append(EQUAL_OPERATOR);
         Operator_list->append(SUM_OPERATOR);
         Operator_list->append(SUBTRAC_OPERATOR);
         Operator_list->append(DIV_OPERATOR);
         Operator_list->append(MULTI_OPERATOR);
-        Size_list->show();
+
 
         SimplyLinkedList<string> processedLine = Readline(std::move(line));
         Decodify_line(processedLine);
