@@ -4,7 +4,6 @@
 
 #ifndef C_IDE_TRANSLATE_CODE_H
 #define C_IDE_TRANSLATE_CODE_H
-
 #include <utility>
 #include "src/DataStructure/SimplyLinkedList.h"
 #include "src/TypeConversion/TypeMessage.h"
@@ -12,7 +11,6 @@
 #include "gui_c.h"
 #include "iostream"
 #include "sstream"
-
 
 using namespace std;
 
@@ -41,8 +39,6 @@ static SimplyLinkedList<string> *Operator_list;
 static SimplyLinkedList<string> *Operator_vlist;
 
 class Translate_Code {
-
-
 public:
 
     static SimplyLinkedList<string> Readline(string line) {
@@ -52,7 +48,6 @@ public:
         char c;
         string note;
         std::string s;
-
 
         while (cont < line.length()) {
             s.clear();
@@ -74,25 +69,19 @@ public:
                     note.push_back(c);
                     output->append(note);
                     note.clear();
-
                 }
-
             }else{
                 note.push_back(c);
             }
             cont++;
         }
-        //output->append(note);
         output->show();
-
         return *output;
     }
-
     static void Decodify_line(SimplyLinkedList<string> stringlist) {
         int ultpos = (stringlist.getLen()-1);
         if (stringlist.get(ultpos) != ";"){
             std::cout << "\n FATAL ERROR " << ";" << " WASN'T DETECTED\n";
-
             return;
         }
         auto *message = new TypeMessage();
@@ -133,8 +122,6 @@ public:
             ObjectToJSON::NewMessageToJSON(message);
 
         }
-
-
         else if (Verify_name(stringlist.get(0))) {
             cout << "Variable: " << stringlist.get(0) << "\n";
             if (Operator_list->boolSearch(stringlist.get(1))) {
@@ -188,7 +175,6 @@ public:
     static bool Verify_Type(string type, string value, SimplyLinkedList<string> *Operator) {
 
         std::stringstream ss;
-
         if (Operator_Verify(value) == true) {
             cout << "\nENVIANDO DATO AL SERVIDOR PARA QUE SEA ANALIZADO\n" << endl;
         } else {
@@ -201,7 +187,7 @@ public:
                 if (typedata == 0 or Point_search(value) == true ) {
                     cout << "\nEL TIPO DE DATO INGRESADO NO ES UN\n" << type << endl;
 
-                } else if (typedata >= -32768 and typedata <= 32767) {
+                } else if (typedata >= -2147483648 and typedata <= 2147483647) {
                     if (type == "Integer") {
                         return true;
                     } else if(type == "Long") {
@@ -209,30 +195,59 @@ public:
                     }else{
                         return false;
                     }
-                } else if (typedata >= -2147483648 and typedata <= 2147483647) {
+                } else if (typedata >= -9223372036854775808 and typedata <= 9223372036854775807) {
                     if (type == "Long") {
                         return true;
                     } else {
+                        cout << "\nDATA OUT OF RANGE\n" << endl;
                         return false;
                     }
                 } else {
                     cout << "\nTIPO DE DATO NO ENCONTRADO\n" << endl;
                 }
             }
-
             //float an double method
             if (type == "Float" or type == "Double") {
+                double typedata1;
+                ss << value;
+                ss >> typedata1;
 
+                if (typedata1 == 0 or Point_search(value) != true ) {
+                    cout << "\nEL TIPO DE DATO INGRESADO NO ES UN\n" << type << endl;
+
+                } else if (typedata1 >= 1.17549e-038 and typedata1 <= 3.40282e+038) {
+                    if (type == "Float") {
+                        return true;
+                    } else if(type == "Long") {
+                        return true;
+                    }else{
+                        return false;
+                    }
+                } else if (typedata1 >= 2.22507e-308 and typedata1 <= 1.79769e+308) {
+                    if (type == "Double") {
+                        return true;
+                    } else {
+                        cout << "\nDATA OUT OF RANGE\n" << endl;
+                        return false;
+                    }
+                } else {
+                    cout << "\nTIPO DE DATO NO ENCONTRADO\n" << endl;
+                }
             }
-
             //char method
             if (type == "Char") {
+                cout << "\nAqui llego\n" << endl;
+                string char1,char2;
+                char1 = value[0];
+                char2 = value[2];
 
+                if(char1 == "'" and char2 == "'"){
+                    return true;
+                } else{
+                    return false;
+                }
             }
-
-
         }
-
     }
 
     static bool Operator_Verify(string value){
@@ -249,7 +264,6 @@ public:
             if (Operator_list->boolSearch(output)) {
                 return true;
             } else {
-                //character1 = ' ';
                 output.clear();
                 mm.clear();
             }
@@ -258,10 +272,7 @@ public:
         return false;
     }
 
-
-
 public:
-
     void static compile(string line) {
          Type_list = new SimplyLinkedList<string>();
          Operator_list = new SimplyLinkedList<string>();
@@ -284,12 +295,9 @@ public:
         Operator_list->append(SUBTRAC_OPERATOR);
         Operator_list->append(DIV_OPERATOR);
         Operator_list->append(MULTI_OPERATOR);
-
-
         SimplyLinkedList<string> processedLine = Readline(std::move(line));
         Decodify_line(processedLine);
     }
-
 };
 
 #endif //C_IDE_TRANSLATE_CODE_H

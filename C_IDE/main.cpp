@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
 {
 
 
+
     auto *message =  new TypeMessage();
 
     message->setType("Integer");
