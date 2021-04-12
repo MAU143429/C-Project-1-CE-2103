@@ -19,6 +19,7 @@ public:
     int cont = 1;
     std::string line;
     Ui::GUI_C *ui;
+    void Show_sms(std::string message);
 
 
 
@@ -32,9 +33,15 @@ private slots:
 
     void on_clearbtn_clicked();
 
+
 private:
 
     QString mFile;
 
+
 };
+
+
+
+
 #endif // GUI_C_H

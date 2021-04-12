@@ -69,10 +69,11 @@ void GUI_C::on_clearbtn_clicked()
     ui->textEdit->clear();
 }
 
+void GUI_C::Show_sms(string message){
 
 
 
 
-
+}
 
 

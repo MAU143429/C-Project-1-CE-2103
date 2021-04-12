@@ -10,12 +10,8 @@ using namespace std;
 
 class TypeMessage {
 private:
-    string type;
-    string modifyValue;
-    string action;
-    string name;
-    string value;
-    string size;
+    string type,modifyValue,action,name,value, size ;
+
 public:
     const string &getSize() const;
 

@@ -12,6 +12,8 @@
 #include "iostream"
 #include "sstream"
 
+
+
 using namespace std;
 
 static const auto INTEGER_KEY = "Integer";
@@ -176,7 +178,9 @@ public:
 
         std::stringstream ss;
         if (Operator_Verify(value) == true) {
+
             cout << "\nENVIANDO DATO AL SERVIDOR PARA QUE SEA ANALIZADO\n" << endl;
+            return true;
         } else {
             //int and long method method
             if (type == "Integer" or type == "Long") {
@@ -195,7 +199,7 @@ public:
                     }else{
                         return false;
                     }
-                } else if (typedata >= -9223372036854775808 and typedata <= 9223372036854775807) {
+                } else if (typedata >= INTMAX_MIN and typedata <= INTMAX_MAX) {
                     if (type == "Long") {
                         return true;
                     } else {
