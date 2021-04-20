@@ -17,6 +17,7 @@ class ObjectToJSON{
 public:
     string static NewMessageToJSON(TypeMessage *message){
         const string& action = message->getAction();
+        const string& response = message->getResponse();
         const string& type = message->getType();
         const string& size = message->getSize();
         const string& name = message->getName();
@@ -29,6 +30,9 @@ public:
 
         writer.Key("action");
         writer.String(action.c_str());
+
+        writer.Key("response");
+        writer.String(response.c_str());
 
         writer.Key("type");
         writer.String(type.c_str());

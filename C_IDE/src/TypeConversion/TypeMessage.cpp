@@ -52,5 +52,13 @@ void TypeMessage::setSize(const string &size) {
     TypeMessage::size = size;
 }
 
+const string &TypeMessage::getResponse() const {
+    return response;
+}
+
+void TypeMessage::setResponse(const string &response) {
+    TypeMessage::response = response;
+}
+
 
 
