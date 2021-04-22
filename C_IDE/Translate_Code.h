@@ -11,7 +11,7 @@
 #include "gui_c.h"
 #include "iostream"
 #include "sstream"
-
+#include "src/Socket/Client.h"
 
 
 using namespace std;
@@ -120,8 +120,11 @@ public:
                 cout
                         << "\nERROR CON EL NOMBRE DE LA VARIABLE\n";
             }
-
-            ObjectToJSON::NewMessageToJSON(message);
+            string mensajeenviar;
+            mensajeenviar.empty();
+            mensajeenviar = ObjectToJSON::NewMessageToJSON(message);
+            cout << mensajeenviar << endl;
+            Client::getInstance()->Send(mensajeenviar.c_str());
 
         }
         else if (Verify_name(stringlist.get(0))) {
@@ -253,6 +256,7 @@ public:
             }
         }
     }
+
 
     static bool Operator_Verify(string value){
         std::stringstream mm;

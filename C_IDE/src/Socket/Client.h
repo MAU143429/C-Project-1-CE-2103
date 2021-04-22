@@ -20,10 +20,11 @@ private:
     static Client* unique_instance;
 public:
     static Client* getInstance();
+    int sock;
     int initClient()
     {
         //	Create a socket
-        int sock = socket(AF_INET, SOCK_STREAM, 0);
+        sock = socket(AF_INET, SOCK_STREAM, 0);
         if (sock == -1)
         {
             return 1;
@@ -48,6 +49,7 @@ public:
         //	While loop:
         char buf[4096];
         string userInput;
+
 
 
         do {
@@ -81,7 +83,18 @@ public:
         close(sock);
 
         return 0;
+
+
     }
+
+    void Send(const char *msg) {
+        int sendRes = send(sock, msg, strlen(msg), 0);
+        if (sendRes == -1) {
+            std::cout << "Send message failed" << std::endl;
+        }
+    }
+
+
 };
 
 
