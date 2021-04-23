@@ -48,7 +48,6 @@ public:
 
 
         writer.EndObject();
-        cout << stringBuffer.GetString() << endl;
         return stringBuffer.GetString();
     }
 

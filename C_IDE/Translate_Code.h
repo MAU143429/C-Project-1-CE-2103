@@ -81,21 +81,29 @@ public:
         return *output;
     }
     static void Decodify_line(SimplyLinkedList<string> stringlist) {
+
+        // Verifica que la linea ingresada contenga un ;
         int ultpos = (stringlist.getLen()-1);
         if (stringlist.get(ultpos) != ";"){
             std::cout << "\n FATAL ERROR " << ";" << " WASN'T DETECTED\n";
             return;
         }
+        //Decodifica la linea de codigo
         auto *message = new TypeMessage();
         if (Type_list->boolSearch(stringlist.get(0))) {
+            // Detecta que se quiere instancear una variable nueva
             message->setType(stringlist.get(0));
             message->setSize(getSize(stringlist.get(0)));
             message->setAction("CREATE");
+            // Verifica que la variable no haya sido creada antes
             if (!Verify_name(stringlist.get(1)) and !Type_list->boolSearch(stringlist.get(1))) {
                     message->setName(stringlist.get(1));
+                    // Verifica que la lista lleve un operador =
                 if (Operator_vlist->boolSearch(stringlist.get(2)) == true) {
 
+                    // Verifica que el valor de la variable a ingresar no coincida con algun identificador
                     if (!Type_list->boolSearch(stringlist.get(3))) {
+                        //Verifica que el valor ha ingresar coincida con el tipo de valor y no sean erroneos
                         if(Verify_Type(stringlist.get(0),stringlist.get(3),Operator_list) == true){
                             message->setValue(stringlist.get(3));
                         }else{
@@ -109,6 +117,7 @@ public:
 
                     }
                 } else {
+                    // Verifica que solo se esta declarando y asigna un valor de 0 la variable
                     if(stringlist.get(2) == ";"){
                        message->setValue("0");
 
@@ -123,10 +132,11 @@ public:
             string mensajeenviar;
             mensajeenviar.empty();
             mensajeenviar = ObjectToJSON::NewMessageToJSON(message);
-            cout << mensajeenviar << endl;
+            cout << "SOY LA VARIABLE MESSAGE" << mensajeenviar << endl;
             Client::getInstance()->Send(mensajeenviar.c_str());
 
         }
+        // Metodo de aritmetica
         else if (Verify_name(stringlist.get(0))) {
             cout << "Variable: " << stringlist.get(0) << "\n";
             if (Operator_list->boolSearch(stringlist.get(1))) {
@@ -140,13 +150,13 @@ public:
             cout << "\nERROR " << stringlist.get(0) << " NO ESTÁ DEFINIDO COMO UN TIPO DE DATO\n";
         }
     }
-
+    // metodo para identificar si algo ya
     static bool Verify_name(string key) {
 
 
         return false;
     }
-
+    // metodo struct
     bool isStruct(string key) {
         //TODO: agregar carnita :)
         return false;
@@ -185,7 +195,7 @@ public:
             cout << "\nENVIANDO DATO AL SERVIDOR PARA QUE SEA ANALIZADO\n" << endl;
             return true;
         } else {
-            //int and long method method
+            //int and long method
             if (type == "Integer" or type == "Long") {
                 long typedata;
                 ss << value;
@@ -243,7 +253,6 @@ public:
             }
             //char method
             if (type == "Char") {
-                cout << "\nAqui llego\n" << endl;
                 string char1,char2;
                 char1 = value[0];
                 char2 = value[2];
@@ -268,7 +277,6 @@ public:
             character1 = value[counter1];
             mm << character1;
             mm >> output;
-            cout << output << endl;
             if (Operator_list->boolSearch(output)) {
                 return true;
             } else {

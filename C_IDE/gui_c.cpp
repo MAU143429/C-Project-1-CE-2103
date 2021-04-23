@@ -56,12 +56,12 @@ void GUI_C::on_nextbtn_clicked()
     ifstream MyReadFile("code.txt");
     for(int i = 1; i <= cont ; ++i){
         getline (MyReadFile, line);
-        Translate_Code::compile(line);
-    }
 
+    }
+    Translate_Code::compile(line);
     cout << line << endl;
     cont += 1;
-    MyReadFile.close();
+    //MyReadFile.close();
 }
 
 void GUI_C::on_clearbtn_clicked()

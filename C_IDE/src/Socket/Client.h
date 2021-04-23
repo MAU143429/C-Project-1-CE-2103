@@ -21,8 +21,10 @@ private:
 public:
     static Client* getInstance();
     int sock;
+    string server_response;
     int initClient()
     {
+
         //	Create a socket
         sock = socket(AF_INET, SOCK_STREAM, 0);
         if (sock == -1)
@@ -76,8 +78,16 @@ public:
             {
                 //		Display response
                 cout << "SERVER> " << string(buf, bytesReceived) << "\r\n";
+                server_response = string(buf, bytesReceived);
             }
+
+
+
+
         } while(true);
+
+
+
 
         //	Close the socket
         close(sock);
@@ -92,6 +102,10 @@ public:
         if (sendRes == -1) {
             std::cout << "Send message failed" << std::endl;
         }
+    }
+
+    string ReadString(){
+        return server_response;
     }
 
 
