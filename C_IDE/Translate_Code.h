@@ -167,6 +167,8 @@ public:
         query->setAction("SEARCH");
         query->setName(name);
         Client::getInstance()->Send(ObjectToJSON::NewMessageToJSON(query).c_str());
+
+
         cout<<"LO MANDE A VERIFICAR"<< endl;
 
 
@@ -194,8 +196,9 @@ public:
     }
 
 
+    static string Response_Manager(string ){
 
-
+    }
     static bool Point_search(string txt) {
 
         int counter = 0;

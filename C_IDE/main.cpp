@@ -19,11 +19,14 @@ void RunClient(){
 }
 
 void Response(){
-    string read = " ";
+    static string read = " ";
     while(true){
         if(Client::getInstance()->ReadString().size() > 1 and Client::getInstance()->ReadString() != read){
             read = Client::getInstance()->ReadString();
             cout<< read << endl;
+
+
+
         }else{
             Client::getInstance()->ReadString().empty();
 
