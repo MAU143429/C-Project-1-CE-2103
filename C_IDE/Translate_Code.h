@@ -80,16 +80,19 @@ public:
         output->show();
         return *output;
     }
-    static void Decodify_line(SimplyLinkedList<string> stringlist) {
 
+    static void Decodify_line(SimplyLinkedList<string> stringlist) {
+        auto *message = new TypeMessage();
         // Verifica que la linea ingresada contenga un ;
         int ultpos = (stringlist.getLen()-1);
         if (stringlist.get(ultpos) != ";"){
-            std::cout << "\n FATAL ERROR " << ";" << " WASN'T DETECTED\n";
+            //std::cout << "\n FATAL ERROR " << ";" << " WASN'T DETECTED\n";
+            //TODO INGRESAR ERROR 200
+
             return;
         }
         //Decodifica la linea de codigo
-        auto *message = new TypeMessage();
+
         if (Type_list->boolSearch(stringlist.get(0))) {
             // Detecta que se quiere instancear una variable nueva
             message->setType(stringlist.get(0));
@@ -103,46 +106,53 @@ public:
 
                     // Verifica que el valor de la variable a ingresar no coincida con algun identificador
                     if (!Type_list->boolSearch(stringlist.get(3))) {
+
                         //Verifica que el valor ha ingresar coincida con el tipo de valor y no sean erroneos
                         if(Verify_Type(stringlist.get(0),stringlist.get(3),Operator_list) == true){
                             message->setValue(stringlist.get(3));
                         }else{
-                            std::cout << "\n ERROR: INGRESE UN VALOR ADECUADO AL TIPO DE DATO QUE DESEA CREAR\n";
+                            //std::cout << "\n ERROR: INGRESE UN VALOR ADECUADO AL TIPO DE DATO QUE DESEA CREAR\n";
+                            //TODO INGRESAR EL ERROR 201 y PARAR LA EJECUCION
 
                         }
 
-
                     } else {
-
-
+                        //std::cout << "\n ERROR: EL NOMBRE DEL VALOR QUE DESEA CREAR NO ES VALIDO\n";
+                        //TODO INGRESAR EL ERROR 202 y PARAR LA EJECUCION
                     }
+
                 } else {
+
                     // Verifica que solo se esta declarando y asigna un valor de 0 la variable
                     if(stringlist.get(2) == ";"){
                        message->setValue("0");
+                        Send_Server(message);
+                        //TODO INGRESAR ACEPTACION 300
 
                     }else{
-                        cout << "\nERROR CON EL OPERADOR A UTILIZAR\n";
+                        //cout << "\nERROR CON EL OPERADOR A UTILIZAR\n";
+                        //TODO INGRESAR EL ERROR 203 y PARAR LA EJECUCION
                     }
                 }
             } else {
-                cout
-                        << "\nERROR CON EL NOMBRE DE LA VARIABLE\n";
+                //cout<< "\nFATAL ERROR: EL NOMBRE DE LA VARIABLE QUE INGRESO YA SE ENCUENTRA CREADO O NO ES VALIDO\n";
+                //TODO INGRESAR EL ERROR 204 y PARAR LA EJECUCION
             }
-            string mensajeenviar;
-            mensajeenviar.empty();
-            mensajeenviar = ObjectToJSON::NewMessageToJSON(message);
-            cout << "SOY LA VARIABLE MESSAGE" << mensajeenviar << endl;
-            Client::getInstance()->Send(mensajeenviar.c_str());
+            Send_Server(message);
+
 
         }
         // Metodo de aritmetica
         else if (Verify_name(stringlist.get(0))) {
-            cout << "Variable: " << stringlist.get(0) << "\n";
             if (Operator_list->boolSearch(stringlist.get(1))) {
-                cout << "Operación: " << stringlist.get(1) << "\n";
                 if (Verify_name(stringlist.get(2))) {
                     cout << "Variable: " << stringlist.get(2) << "\n";
+                }else{
+                    auto *query1 = new TypeMessage();
+                    query1->setAction("MODIFY");
+                    query1->setName(stringlist.get(0));
+                    query1->setModifyValue(stringlist.get(2));
+
                 }
             }
 
@@ -150,15 +160,20 @@ public:
             cout << "\nERROR " << stringlist.get(0) << " NO ESTÁ DEFINIDO COMO UN TIPO DE DATO\n";
         }
     }
-    // metodo para identificar si algo ya
-    static bool Verify_name(string key) {
+    // metodo para identificar si algo ya EXISTE
+    static bool Verify_name(string name) {
+
+        auto *query = new TypeMessage();
+        query->setAction("SEARCH");
+        query->setName(name);
+        Client::getInstance()->Send(ObjectToJSON::NewMessageToJSON(query).c_str());
+        cout<<"LO MANDE A VERIFICAR"<< endl;
 
 
-        return false;
     }
     // metodo struct
     bool isStruct(string key) {
-        //TODO: agregar carnita :)
+
         return false;
     }
 
@@ -169,6 +184,17 @@ public:
             }
         }
     }
+
+    static void Send_Server(TypeMessage *message_to_send){
+        string mensajeenviar;
+        mensajeenviar.empty();
+        mensajeenviar = ObjectToJSON::NewMessageToJSON(message_to_send);
+        cout << mensajeenviar << endl;
+        Client::getInstance()->Send(mensajeenviar.c_str());
+    }
+
+
+
 
     static bool Point_search(string txt) {
 

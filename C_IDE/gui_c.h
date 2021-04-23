@@ -19,7 +19,7 @@ public:
     int cont = 1;
     std::string line;
     Ui::GUI_C *ui;
-    void Show_sms(std::string message);
+    void Show_sms(int type_error);
 
 
 
@@ -32,6 +32,8 @@ private slots:
     void on_nextbtn_clicked();
 
     void on_clearbtn_clicked();
+
+    void Error_Generated(int error);
 
 
 private:

@@ -54,19 +54,7 @@ public:
 
 
 
-        do {
-            //		Enter lines of text
-            cout << "> ";
-            getline(cin, userInput);
-
-            //		Send to server
-            int sendRes = send(sock, userInput.c_str(), userInput.size() + 1, 0);
-            if (sendRes == -1)
-            {
-                cout << "Could not send to server! Whoops!\r\n";
-                continue;
-            }
-
+        while(true){
             //		Wait for response
             memset(buf, 0, 4096);
             int bytesReceived = recv(sock, buf, 4096, 0);
@@ -76,15 +64,10 @@ public:
             }
             else
             {
-                //		Display response
-                cout << "SERVER> " << string(buf, bytesReceived) << "\r\n";
                 server_response = string(buf, bytesReceived);
             }
 
-
-
-
-        } while(true);
+        }
 
 
 
