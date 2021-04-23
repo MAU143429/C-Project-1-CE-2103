@@ -7,6 +7,7 @@
 #include <src/TypeConversion/TypeMessage.h>
 #include "lib/rapidjson/stringbuffer.h"
 #include "lib/rapidjson/writer.h"
+#include "lib/rapidjson/document.h"
 #include <string>
 #include "iostream"
 
@@ -15,13 +16,14 @@ using namespace std;
 
 class ObjectToJSON{
 public:
-    string static NewMessageToJSON(TypeMessage *message){
+    static string NewMessageToJSON(TypeMessage *message){
         const string& action = message->getAction();
         const string& response = message->getResponse();
         const string& type = message->getType();
         const string& size = message->getSize();
         const string& name = message->getName();
         const string& value = message->getValue();
+        const string& code = message->getCode();
 
 
         StringBuffer stringBuffer;
@@ -46,11 +48,29 @@ public:
         writer.Key("value");
         writer.String(value.c_str());
 
+        writer.Key("code");
+        writer.String(code.c_str());
+
 
         writer.EndObject();
         cout << stringBuffer.GetString() << endl;
         return stringBuffer.GetString();
     }
 
+    static string GetJSONString(string key, const string &jsonString){
+        rapidjson::Document document;
+        document.Parse<kParseDefaultFlags>(jsonString.c_str());
+        const char *searchedString;
+        if (document.HasMember(key.c_str())){
+            if (document[key.c_str()].IsString()){
+                searchedString = document[key.c_str()].GetString();
+
+            }
+            return searchedString;
+        }else {
+            cout << "key not found" << endl;
+
+        }
+    }
 };
 #endif //C_IDE_OBJECTTOJSON_H
