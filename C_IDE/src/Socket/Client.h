@@ -69,9 +69,6 @@ public:
 
         }
 
-
-
-
         //	Close the socket
         close(sock);
 

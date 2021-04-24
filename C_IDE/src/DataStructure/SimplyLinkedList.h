@@ -131,9 +131,6 @@ public:
         return result;
     }
 
-    void delIndex(int index) {
-
-    }
 
     void delHead() {
         this->del(this->head->getValue());

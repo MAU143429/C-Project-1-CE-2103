@@ -83,12 +83,12 @@ public:
 
     static void Decodify_line(SimplyLinkedList<string> stringlist) {
         auto *message = new TypeMessage();
+
         // Verifica que la linea ingresada contenga un ;
         int ultpos = (stringlist.getLen()-1);
         if (stringlist.get(ultpos) != ";"){
             //std::cout << "\n FATAL ERROR " << ";" << " WASN'T DETECTED\n";
             //TODO INGRESAR ERROR 200
-
             return;
         }
         //Decodifica la linea de codigo
@@ -102,13 +102,13 @@ public:
             if (!Verify_name(stringlist.get(1)) and !Type_list->boolSearch(stringlist.get(1))) {
                     message->setName(stringlist.get(1));
                     // Verifica que la lista lleve un operador =
-                if (Operator_vlist->boolSearch(stringlist.get(2)) == true) {
+                if (Operator_vlist->boolSearch(stringlist.get(2))) {
 
-                    // Verifica que el valor de la variable a ingresar no coincida con algun identificador
+                    // Verifica que el valor de la variable a ingresar tenga sentido
                     if (!Type_list->boolSearch(stringlist.get(3))) {
 
                         //Verifica que el valor ha ingresar coincida con el tipo de valor y no sean erroneos
-                        if(Verify_Type(stringlist.get(0),stringlist.get(3),Operator_list) == true){
+                        if(Verify_Type(stringlist.get(0),stringlist.get(3),Operator_list)){
                             message->setValue(stringlist.get(3));
                         }else{
                             //std::cout << "\n ERROR: INGRESE UN VALOR ADECUADO AL TIPO DE DATO QUE DESEA CREAR\n";
@@ -125,9 +125,15 @@ public:
 
                     // Verifica que solo se esta declarando y asigna un valor de 0 la variable
                     if(stringlist.get(2) == ";"){
-                       message->setValue("0");
-                        Send_Server(message);
-                        //TODO INGRESAR ACEPTACION 300
+                        if(stringlist.get(0) != "Char"){
+                            message->setValue("0");
+                            Send_Server(message);
+                        }else{
+                            message->setValue(" ");
+                            Send_Server(message);
+                        }
+
+                        //TODO INGRESAR ACEPTACION 300 (ELEMENTO ENVIADO AL SERVIDOR)
 
                     }else{
                         //cout << "\nERROR CON EL OPERADOR A UTILIZAR\n";
@@ -196,9 +202,6 @@ public:
     }
 
 
-    static string Response_Manager(string ){
-
-    }
     static bool Point_search(string txt) {
 
         int counter = 0;
