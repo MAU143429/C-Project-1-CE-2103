@@ -19,7 +19,6 @@ public:
     int cont = 1;
     std::string line;
     Ui::GUI_C *ui;
-    void Show_sms(int type_error);
 
 
 
@@ -33,12 +32,11 @@ private slots:
 
     void on_clearbtn_clicked();
 
-    void Error_Generated(int error);
-
 
 private:
 
     QString mFile;
+
 
 
 };

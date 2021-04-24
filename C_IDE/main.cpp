@@ -27,8 +27,7 @@ void RunClient(){
         if(Client::getInstance()->ReadString().size() > 1 and Client::getInstance()->ReadString() != read){
             read = Client::getInstance()->ReadString();
             cout<< read << endl;
-
-            Process_Message::ProcessCode(read);
+            Process_Message::ProcessCode(read.c_str());
 
         }else{
             Client::getInstance()->ReadString().clear();

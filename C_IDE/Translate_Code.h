@@ -12,6 +12,7 @@
 #include "iostream"
 #include "sstream"
 #include "src/Socket/Client.h"
+#include "src/TypeConversion/Process_Message.h"
 
 
 using namespace std;
@@ -99,7 +100,7 @@ public:
             message->setSize(getSize(stringlist.get(0)));
             message->setAction("CREATE");
             // Verifica que la variable no haya sido creada antes
-            if (!Verify_name(stringlist.get(1)) and !Type_list->boolSearch(stringlist.get(1))) {
+            if (!Type_list->boolSearch(stringlist.get(1))) {
                     message->setName(stringlist.get(1));
                     // Verifica que la lista lleve un operador =
                 if (Operator_vlist->boolSearch(stringlist.get(2))) {
@@ -148,36 +149,10 @@ public:
 
 
         }
-        // Metodo de aritmetica
-        else if (Verify_name(stringlist.get(0))) {
-            if (Operator_list->boolSearch(stringlist.get(1))) {
-                if (Verify_name(stringlist.get(2))) {
-                    cout << "Variable: " << stringlist.get(2) << "\n";
-                }else{
-                    auto *query1 = new TypeMessage();
-                    query1->setAction("MODIFY");
-                    query1->setName(stringlist.get(0));
-                    query1->setModifyValue(stringlist.get(2));
+        // Metodo para cuando no se quiere crear una instancia
+        else  {
 
-                }
-            }
-
-        } else {
-            cout << "\nERROR " << stringlist.get(0) << " NO ESTÁ DEFINIDO COMO UN TIPO DE DATO\n";
         }
-    }
-    // metodo para identificar si algo ya EXISTE
-    static bool Verify_name(string name) {
-
-        auto *query = new TypeMessage();
-        query->setAction("SEARCH");
-        query->setName(name);
-        Client::getInstance()->Send(ObjectToJSON::NewMessageToJSON(query).c_str());
-
-
-        cout<<"LO MANDE A VERIFICAR"<< endl;
-
-
     }
     // metodo struct
     bool isStruct(string key) {
