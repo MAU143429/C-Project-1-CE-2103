@@ -12,8 +12,10 @@ static const auto STD_PRINT_RESPONSE = "101";
 static const auto APPLOG_PRINT_RESPONSE = "102";
 class Process_Message {
 public:
+
     static void ProcessCode(const string& response);
     static string Select_Response();
+
 
 
 };

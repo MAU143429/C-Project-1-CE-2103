@@ -174,6 +174,8 @@ public:
         mensajeenviar = ObjectToJSON::NewMessageToJSON(message_to_send);
         cout << mensajeenviar << endl;
         Client::getInstance()->Send(mensajeenviar.c_str());
+
+
     }
 
 

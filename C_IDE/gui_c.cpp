@@ -58,8 +58,9 @@ void GUI_C::on_nextbtn_clicked()
 
     }
     Translate_Code::compile(line);
+
     cont += 1;
-    //MyReadFile.close();
+
 }
 
 void GUI_C::on_clearbtn_clicked()
@@ -68,6 +69,17 @@ void GUI_C::on_clearbtn_clicked()
 
 
 }
+
+void GUI_C::print() {
+
+
+
+}
+
+
+
+
+
 
 
 

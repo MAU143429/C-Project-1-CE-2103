@@ -32,6 +32,7 @@ private slots:
 
     void on_clearbtn_clicked();
 
+    void print();
 
 private:
 
