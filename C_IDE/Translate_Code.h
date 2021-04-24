@@ -128,10 +128,10 @@ public:
                     if(stringlist.get(2) == ";"){
                         if(stringlist.get(0) != "Char"){
                             message->setValue("0");
-                            Send_Server(message);
+
                         }else{
                             message->setValue(" ");
-                            Send_Server(message);
+
                         }
 
                         //TODO INGRESAR ACEPTACION 300 (ELEMENTO ENVIADO AL SERVIDOR)
@@ -146,7 +146,7 @@ public:
                 //TODO INGRESAR EL ERROR 204 y PARAR LA EJECUCION
             }
 
-            return Send_Server(message);
+            return ObjectToJSON::NewMessageToJSON(message);
 
 
         }
@@ -168,25 +168,6 @@ public:
             }
         }
     }
-
-    static string Send_Server(TypeMessage *message_to_send){
-        string mensajeenviar;
-        mensajeenviar.empty();
-        mensajeenviar = ObjectToJSON::NewMessageToJSON(message_to_send);
-        cout << mensajeenviar << endl;
-        Client::getInstance()->Send(mensajeenviar.c_str());
-        return Response_GUI();
-
-    }
-
-    static string Response_GUI(){
-        string respuesta;
-        respuesta = Process_Message::getInstance()->Select_Response();
-        cout<<"^^^^^^^LA RESPUESTA SE PRINTEO ARRIBA MIO ^^^^^"<<endl;
-        cout<<"SOY LA RESPUESTA "<<respuesta<<endl;
-        return respuesta;
-    }
-
 
     static bool Point_search(string txt) {
 

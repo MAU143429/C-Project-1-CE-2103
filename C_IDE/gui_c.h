@@ -19,6 +19,7 @@ public:
     int cont = 1;
     std::string line;
     Ui::GUI_C *ui;
+    std::string message;
 
 
 

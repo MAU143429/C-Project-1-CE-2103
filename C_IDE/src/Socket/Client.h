@@ -96,6 +96,10 @@ public:
         return server_response;
     }
 
+    string setResponse(string newresponse){
+        server_response = newresponse;
+    }
+
 
 };
 
