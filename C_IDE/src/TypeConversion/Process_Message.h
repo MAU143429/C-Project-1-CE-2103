@@ -11,8 +11,11 @@ static const auto RLV_PRINT_RESPONSE= "100";
 static const auto STD_PRINT_RESPONSE = "101";
 static const auto APPLOG_PRINT_RESPONSE = "102";
 class Process_Message {
+private:
+    Process_Message();
+    static Process_Message* unique_instance;
 public:
-
+    static Process_Message *getInstance();
     static void ProcessCode(const string& response);
     static string Select_Response();
 

@@ -2,12 +2,7 @@
 #include "./ui_gui_c.h"
 #include <iostream>
 #include <fstream>
-#include <sstream>
 #include "src/Datatypes/Integer.h"
-#include "src/Datatypes/Float.h"
-#include "src/Datatypes/Double.h"
-#include "src/Datatypes/Char.h"
-#include "src/Datatypes/Long.h"
 #include "Translate_Code.h"
 
 
@@ -68,11 +63,12 @@ void GUI_C::on_clearbtn_clicked()
     ui->textEdit->clear();
 
 
+
 }
 
 void GUI_C::print() {
-
-
+    string var1;
+    var1 = Process_Message::getInstance()->Select_Response();
 
 }
 
