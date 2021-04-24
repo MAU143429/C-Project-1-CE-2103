@@ -60,7 +60,7 @@ public:
                     output->append(note);
                     note.clear();
                 }
-            } else if (c == ';' or Operator_vlist->boolSearch(s) == true){
+            } else if (c == ';' or Operator_vlist->boolSearch(s)){
                 if(!note.empty()){
                     output->append(note);
                     note.clear();
