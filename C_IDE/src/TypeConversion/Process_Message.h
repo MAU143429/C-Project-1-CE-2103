@@ -5,9 +5,10 @@
 #ifndef C_IDE_PROCESS_MESSAGE_H
 #define C_IDE_PROCESS_MESSAGE_H
 
-
+using namespace std;
 class Process_Message {
-
+public:
+    static void ProcessCode(const string& code);
 };
 
 
