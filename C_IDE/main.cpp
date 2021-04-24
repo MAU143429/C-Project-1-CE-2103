@@ -9,6 +9,7 @@
 #include "src/Socket/Client.h"
 #include <thread>
 #include <pthread.h>
+#include <src/TypeConversion/Process_Message.h>
 
 
 using namespace std;
@@ -18,21 +19,19 @@ void RunClient(){
     Client::getInstance()->initClient();
 }
 
-void Response(){
-    static string read = " ";
-    const string json;
+[[noreturn]] void Response(){
+    string read;
+
     while(true){
 
         if(Client::getInstance()->ReadString().size() > 1 and Client::getInstance()->ReadString() != read){
             read = Client::getInstance()->ReadString();
-
             cout<< read << endl;
 
-
-
+            Process_Message::ProcessCode(read);
 
         }else{
-            Client::getInstance()->ReadString().empty();
+            Client::getInstance()->ReadString().clear();
 
         }
     }
