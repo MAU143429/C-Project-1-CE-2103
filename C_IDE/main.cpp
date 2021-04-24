@@ -20,10 +20,14 @@ void RunClient(){
 
 void Response(){
     static string read = " ";
+    const string json;
     while(true){
+
         if(Client::getInstance()->ReadString().size() > 1 and Client::getInstance()->ReadString() != read){
             read = Client::getInstance()->ReadString();
+
             cout<< read << endl;
+
 
 
 

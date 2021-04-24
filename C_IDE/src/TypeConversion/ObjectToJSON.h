@@ -56,7 +56,7 @@ public:
         return stringBuffer.GetString();
     }
 
-    static string GetJSONString(string key, const string &jsonString){
+    static string GetJSONString(string key,const string &jsonString){
         rapidjson::Document document;
         document.Parse<kParseDefaultFlags>(jsonString.c_str());
         const char *searchedString;
