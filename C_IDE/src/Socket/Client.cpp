@@ -1,17 +1,15 @@
 //
-// Created by njohnson on 4/21/21.
-//
 
 #include "Client.h"
 
-Client* Client::unique_instance = NULL;
+Client* Client::unique_instance {nullptr};
+mutex Client::mutex_;
+
 Client::Client() {}
-
-
+Client::~Client() {}
 
 Client *Client::getInstance() {
-    if (unique_instance == NULL){
-        unique_instance = new Client();
-    }
+    lock_guard<std::mutex> lock(mutex_);
+    if (unique_instance == nullptr){unique_instance = new Client();}
     return unique_instance;
 }

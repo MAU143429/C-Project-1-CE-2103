@@ -12,16 +12,23 @@
 #include <arpa/inet.h>
 #include <string.h>
 #include <string>
+#include <mutex>
 
 using namespace std;
 class Client {
-private:
+protected:
     Client();
+    ~Client();
+private:
     static Client* unique_instance;
+    static mutex mutex_;
 public:
     static Client* getInstance();
-    int sock;
+    int sock{};
     string server_response;
+    void operator=(const Client &) = delete;
+
+
     int initClient()
     {
 
