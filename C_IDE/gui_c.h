@@ -32,7 +32,7 @@ private slots:
 
     void on_clearbtn_clicked();
 
-    void print();
+    void print(std::string response);
 
 private:
 

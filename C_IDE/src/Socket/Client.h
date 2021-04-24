@@ -27,6 +27,7 @@ public:
     int sock{};
     string server_response;
     void operator=(const Client &) = delete;
+    Client(Client &other) = delete;
 
 
     int initClient()

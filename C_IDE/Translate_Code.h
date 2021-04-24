@@ -82,7 +82,7 @@ public:
         return *output;
     }
 
-    static void Decodify_line(SimplyLinkedList<string> stringlist) {
+    static string Decodify_line(SimplyLinkedList<string> stringlist) {
         auto *message = new TypeMessage();
 
         // Verifica que la linea ingresada contenga un ;
@@ -90,7 +90,7 @@ public:
         if (stringlist.get(ultpos) != ";"){
             //std::cout << "\n FATAL ERROR " << ";" << " WASN'T DETECTED\n";
             //TODO INGRESAR ERROR 200
-            return;
+
         }
         //Decodifica la linea de codigo
 
@@ -145,7 +145,8 @@ public:
                 //cout<< "\nFATAL ERROR: EL NOMBRE DE LA VARIABLE QUE INGRESO YA SE ENCUENTRA CREADO O NO ES VALIDO\n";
                 //TODO INGRESAR EL ERROR 204 y PARAR LA EJECUCION
             }
-            Send_Server(message);
+
+            return Send_Server(message);
 
 
         }
@@ -168,14 +169,22 @@ public:
         }
     }
 
-    static void Send_Server(TypeMessage *message_to_send){
+    static string Send_Server(TypeMessage *message_to_send){
         string mensajeenviar;
         mensajeenviar.empty();
         mensajeenviar = ObjectToJSON::NewMessageToJSON(message_to_send);
         cout << mensajeenviar << endl;
         Client::getInstance()->Send(mensajeenviar.c_str());
+        return Response_GUI();
 
+    }
 
+    static string Response_GUI(){
+        string respuesta;
+        respuesta = Process_Message::getInstance()->Select_Response();
+        cout<<"^^^^^^^LA RESPUESTA SE PRINTEO ARRIBA MIO ^^^^^"<<endl;
+        cout<<"SOY LA RESPUESTA "<<respuesta<<endl;
+        return respuesta;
     }
 
 
@@ -298,7 +307,7 @@ public:
     }
 
 public:
-    void static compile(string line) {
+    string static compile(string line) {
          Type_list = new SimplyLinkedList<string>();
          Operator_list = new SimplyLinkedList<string>();
         Operator_vlist = new SimplyLinkedList<string>();
@@ -321,7 +330,8 @@ public:
         Operator_list->append(DIV_OPERATOR);
         Operator_list->append(MULTI_OPERATOR);
         SimplyLinkedList<string> processedLine = Readline(std::move(line));
-        Decodify_line(processedLine);
+        return Decodify_line(processedLine);
+
     }
 };
 

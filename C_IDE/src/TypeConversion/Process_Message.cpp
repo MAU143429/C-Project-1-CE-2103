@@ -9,21 +9,26 @@
 
 using namespace std;
 Process_Message* Process_Message::unique_instance = nullptr;
+mutex Process_Message::mutex_;
 
 Process_Message::Process_Message() {}
+Process_Message::~Process_Message() {}
 
 Process_Message *Process_Message::getInstance() {
+    lock_guard<std::mutex> lock(mutex_);
     if (unique_instance == nullptr){
         unique_instance = new Process_Message();
     }
     return unique_instance;
 }
 
-static string code_entered, response_json;
+string code_entered, response_json;
+
 void Process_Message::ProcessCode(const string& response) {
     code_entered = ObjectToJSON::GetJSONString("code", response);
     response_json = ObjectToJSON::GetJSONString("response", response);
     Select_Response();
+    cout<<"^^^^^^^^^^^^^^^^^^^YA SE ENVIO LA RESPUESTA^^^^^^^^^^^^^^^^^"<<endl;
 
 }
 
