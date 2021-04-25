@@ -128,7 +128,6 @@ public:
                     if(stringlist.get(2) == ";"){
                         if(stringlist.get(0) != "Char"){
                             message->setValue("0");
-
                         }else{
                             message->setValue(" ");
 

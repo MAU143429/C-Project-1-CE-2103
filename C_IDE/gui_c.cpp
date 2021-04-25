@@ -32,6 +32,7 @@ void GUI_C::on_runbtn_clicked()
    ifstream RFile("code.txt");
    getline(RFile,line);
    message = Translate_Code::compile(line);
+   cout<<message<<endl;
    Client::getInstance()->Send(message.c_str());
    string response;
    while(response.empty()){
@@ -60,6 +61,7 @@ void GUI_C::on_nextbtn_clicked()
 
     }
     message = Translate_Code::compile(line);
+    cout<<message<<endl;
     Client::getInstance()->Send(message.c_str());
     string response;
     while(response.empty()){
