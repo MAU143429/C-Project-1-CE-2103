@@ -12,14 +12,6 @@ void TypeMessage::setType(const string &type) {
     TypeMessage::type = type;
 }
 
-const string &TypeMessage::getModifyValue() const {
-    return modifyValue;
-}
-
-void TypeMessage::setModifyValue(const string &modifyValue) {
-    TypeMessage::modifyValue = modifyValue;
-}
-
 const string &TypeMessage::getAction() const {
     return action;
 }
@@ -66,6 +58,30 @@ const string &TypeMessage::getCode() const {
 
 void TypeMessage::setCode(const string &code) {
     TypeMessage::code = code;
+}
+
+const string &TypeMessage::getMemoryAddress() const {
+    return memory_address;
+}
+
+void TypeMessage::setMemoryAddress(const string &memoryAddress) {
+    memory_address = memoryAddress;
+}
+
+const string &TypeMessage::getRefCount() const {
+    return ref_count;
+}
+
+void TypeMessage::setRefCount(const string &refCount) {
+    ref_count = refCount;
+}
+
+const string &TypeMessage::getModifyvalue() const {
+    return modifyvalue;
+}
+
+void TypeMessage::setModifyvalue(const string &modifyvalue) {
+    TypeMessage::modifyvalue = modifyvalue;
 }
 
 

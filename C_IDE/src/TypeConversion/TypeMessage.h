@@ -10,7 +10,20 @@ using namespace std;
 
 class TypeMessage {
 private:
-    string type,modifyValue,action,name,value, size, response, code;
+    string type,modifyvalue,action,name,value, size, response, code,memory_address,ref_count;
+public:
+    const string &getModifyvalue() const;
+
+    void setModifyvalue(const string &modifyvalue);
+
+public:
+    const string &getMemoryAddress() const;
+
+    void setMemoryAddress(const string &memoryAddress);
+
+    const string &getRefCount() const;
+
+    void setRefCount(const string &refCount);
 
 public:
     const string &getResponse() const;
@@ -24,10 +37,6 @@ public:
     const string &getType() const;
 
     void setType(const string &type);
-
-    const string &getModifyValue() const;
-
-    void setModifyValue(const string &modifyValue);
 
     const string &getAction() const;
 
