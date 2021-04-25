@@ -203,7 +203,7 @@
      <string>References</string>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="textBrowser">
+   <widget class="QTextBrowser" name="mem_box">
     <property name="geometry">
      <rect>
       <x>700</x>
@@ -213,7 +213,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="textBrowser_2">
+   <widget class="QTextBrowser" name="valuebox">
     <property name="geometry">
      <rect>
       <x>800</x>
@@ -223,7 +223,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="textBrowser_3">
+   <widget class="QTextBrowser" name="tagbox">
     <property name="geometry">
      <rect>
       <x>860</x>
@@ -233,7 +233,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="textBrowser_4">
+   <widget class="QTextBrowser" name="refbox">
     <property name="geometry">
      <rect>
       <x>910</x>

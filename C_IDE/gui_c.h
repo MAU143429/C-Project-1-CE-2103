@@ -8,6 +8,9 @@
 QT_BEGIN_NAMESPACE
 namespace Ui { class GUI_C; }
 QT_END_NAMESPACE
+static const auto RLV_PRINT_RESPONSE= "100";
+static const auto STD_PRINT_RESPONSE = "101";
+static const auto APPLOG_PRINT_RESPONSE = "102";
 
 class GUI_C : public QMainWindow
 {
@@ -23,6 +26,7 @@ public:
 
 
 
+
 private slots:
 
     void on_runbtn_clicked();
@@ -33,7 +37,7 @@ private slots:
 
     void on_clearbtn_clicked();
 
-    void print(std::string response);
+    void print(std::string json);
 
 private:
 

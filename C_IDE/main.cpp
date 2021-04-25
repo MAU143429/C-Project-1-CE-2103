@@ -9,7 +9,7 @@
 #include "src/Socket/Client.h"
 #include <thread>
 #include <pthread.h>
-#include <src/TypeConversion/Process_Message.h>
+
 
 
 using namespace std;
@@ -17,23 +17,6 @@ using namespace std;
 void RunClient(){
     cout << "\n The client is running \n" << endl;
     Client::getInstance()->initClient();
-}
-
-[[noreturn]] void Response(){
-    string read;
-
-    while(true){
-
-        if(Client::getInstance()->ReadString().size() > 1 and Client::getInstance()->ReadString() != read){
-            read = Client::getInstance()->ReadString();
-            cout<< read << endl;
-            Process_Message::getInstance()->ProcessCode(read);
-
-        }else{
-            Client::getInstance()->ReadString().clear();
-
-        }
-    }
 }
 
 int RunGUI(int argc, char *argv[]){
@@ -49,11 +32,11 @@ int main(int argc, char *argv[])
 {
     thread runC(RunClient);
     thread runGUI(RunGUI, argc, argv);
-    thread response(Response);
+
 
     runC.join();
     runGUI.join();
-    response.join();
+
 
 
 }

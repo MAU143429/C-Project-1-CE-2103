@@ -75,13 +75,37 @@ void GUI_C::on_clearbtn_clicked()
 {
     ui->textEdit->clear();
 
-
-
 }
 
-void GUI_C::print(string var1) {
-    string printsms = ObjectToJSON::GetJSONString("response",var1);
-    ui->aplogbox->append(printsms.c_str());
+void GUI_C::print(string json) {
+    string code = ObjectToJSON::GetJSONString("code", json);
+
+
+    if(code == RLV_PRINT_RESPONSE){
+        string value = ObjectToJSON::GetJSONString("value", json);
+        string name = ObjectToJSON::GetJSONString("name", json);
+        string references = ObjectToJSON::GetJSONString("reference_counter", json);
+        string mem_address = ObjectToJSON::GetJSONString("memory_address", json);
+
+        ui->mem_box->append(mem_address.c_str());
+        ui->refbox->append(references.c_str());
+        ui->tagbox->append(name.c_str());
+        ui->valuebox->append(value.c_str());
+
+        
+
+    }
+    if(code == STD_PRINT_RESPONSE){
+        string printsms = ObjectToJSON::GetJSONString("response", json);
+        ui->stdoutbox->append(printsms.c_str());
+
+    }if(code == APPLOG_PRINT_RESPONSE){
+        string printsms = ObjectToJSON::GetJSONString("response", json);
+        ui->aplogbox->append(printsms.c_str());
+
+    }
+
+
 }
 
 
