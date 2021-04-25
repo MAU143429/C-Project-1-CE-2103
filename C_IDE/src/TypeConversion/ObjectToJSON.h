@@ -28,7 +28,6 @@ public:
         const string &RefCount = message->getRefCount();
         const string &MemoryAddress = message->getMemoryAddress();
 
-
         StringBuffer stringBuffer;
         Writer<StringBuffer> writer(stringBuffer);
         writer.StartObject();
@@ -75,12 +74,10 @@ public:
         if (document.HasMember(key.c_str())){
             if (document[key.c_str()].IsString()){
                 searchedString = document[key.c_str()].GetString();
-
             }
             return searchedString;
         }else {
-            cout << "key not found" << endl;
-
+            cout << "ERROR IN JSON: KEY NOT FOUND" << endl;
         }
     }
 };

@@ -24,9 +24,6 @@ public:
     Ui::GUI_C *ui;
     std::string message;
 
-
-
-
 private slots:
 
     void on_runbtn_clicked();
@@ -40,11 +37,7 @@ private slots:
     void print(std::string json);
 
 private:
-
     QString mFile;
-
-
-
 };
 
 

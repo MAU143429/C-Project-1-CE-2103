@@ -32,7 +32,6 @@ public:
 
     int initClient()
     {
-
         //	Create a socket
         sock = socket(AF_INET, SOCK_STREAM, 0);
         if (sock == -1)
@@ -40,10 +39,8 @@ public:
             return 1;
         }
 
-        //	Create a hint structure for the server we're connecting with
         int port = 54000;
         string ipAddress = "127.0.0.1";
-
         sockaddr_in hint;
         hint.sin_family = AF_INET;
         hint.sin_port = htons(port);
@@ -56,11 +53,8 @@ public:
             return 1;
         }
 
-        //	While loop:
         char buf[4096];
         string userInput;
-
-
 
         while(true){
             //		Wait for response
@@ -68,21 +62,15 @@ public:
             int bytesReceived = recv(sock, buf, 4096, 0);
             if (bytesReceived == -1)
             {
-                cout << "There was an error getting response from server\r\n";
+                cout << "ERROR :TO GETTING RESPONSE FROM SERVER\r\n";
             }
             else
             {
                 server_response = string(buf, bytesReceived);
             }
-
         }
-
-        //	Close the socket
         close(sock);
-
         return 0;
-
-
     }
 
     void Send(const char *msg) {
@@ -99,7 +87,6 @@ public:
     string setResponse(string newresponse){
         server_response = newresponse;
     }
-
 
 };
 

@@ -13,8 +13,6 @@
 #include "sstream"
 #include "src/Socket/Client.h"
 
-
-
 using namespace std;
 
 static const auto INTEGER_KEY = "Integer";
@@ -45,7 +43,6 @@ class Translate_Code {
 public:
 
     static SimplyLinkedList<string> Readline(string line) {
-
         auto *output = new SimplyLinkedList<string>();
         int cont = 0;
         char c;
@@ -82,18 +79,17 @@ public:
         return *output;
     }
 
+
+
     static string Decodify_line(SimplyLinkedList<string> stringlist) {
         auto *message = new TypeMessage();
-
         // Verifica que la linea ingresada contenga un ;
         int ultpos = (stringlist.getLen()-1);
         if (stringlist.get(ultpos) != ";"){
             //std::cout << "\n FATAL ERROR " << ";" << " WASN'T DETECTED\n";
             //TODO INGRESAR ERROR 200
-
         }
         //Decodifica la linea de codigo
-
         if (Type_list->boolSearch(stringlist.get(0))) {
             // Detecta que se quiere instancear una variable nueva
             message->setType(stringlist.get(0));
@@ -114,27 +110,19 @@ public:
                         }else{
                             //std::cout << "\n ERROR: INGRESE UN VALOR ADECUADO AL TIPO DE DATO QUE DESEA CREAR\n";
                             //TODO INGRESAR EL ERROR 201 y PARAR LA EJECUCION
-
                         }
-
-                    } else {
+                    } else{
                         //std::cout << "\n ERROR: EL NOMBRE DEL VALOR QUE DESEA CREAR NO ES VALIDO\n";
                         //TODO INGRESAR EL ERROR 202 y PARAR LA EJECUCION
                     }
-
                 } else {
-
                     // Verifica que solo se esta declarando y asigna un valor de 0 la variable
                     if(stringlist.get(2) == ";"){
                         if(stringlist.get(0) != "Char"){
                             message->setValue("0");
                         }else{
                             message->setValue(" ");
-
                         }
-
-                        //TODO INGRESAR ACEPTACION 300 (ELEMENTO ENVIADO AL SERVIDOR)
-
                     }else{
                         //cout << "\nERROR CON EL OPERADOR A UTILIZAR\n";
                         //TODO INGRESAR EL ERROR 203 y PARAR LA EJECUCION
@@ -144,10 +132,7 @@ public:
                 //cout<< "\nFATAL ERROR: EL NOMBRE DE LA VARIABLE QUE INGRESO YA SE ENCUENTRA CREADO O NO ES VALIDO\n";
                 //TODO INGRESAR EL ERROR 204 y PARAR LA EJECUCION
             }
-
             return ObjectToJSON::NewMessageToJSON(message);
-
-
         }
         // Metodo para cuando no se quiere crear una instancia
         else  {
@@ -175,10 +160,8 @@ public:
     }
 
     static bool Point_search(string txt) {
-
         int counter = 0;
         char character;
-
 
         while (counter < txt.length()) {
             character = txt[counter];
@@ -191,11 +174,12 @@ public:
         }
         return false;
     }
+
+
     static bool Verify_Type(string type, string value, SimplyLinkedList<string> *Operator) {
-
         std::stringstream ss;
-        if (Operator_Verify(value) == true) {
 
+        if (Operator_Verify(value)) {
             cout << "\nENVIANDO DATO AL SERVIDOR PARA QUE SEA ANALIZADO\n" << endl;
             return true;
         } else {
@@ -204,10 +188,8 @@ public:
                 long typedata;
                 ss << value;
                 ss >> typedata;
-
-                if (typedata == 0 or Point_search(value) == true ) {
+                if (typedata == 0 or Point_search(value)) {
                     cout << "\nEL TIPO DE DATO INGRESADO NO ES UN\n" << type << endl;
-
                 } else if (typedata >= -2147483648 and typedata <= 2147483647) {
                     if (type == "Integer") {
                         return true;
@@ -233,7 +215,7 @@ public:
                 ss << value;
                 ss >> typedata1;
 
-                if (typedata1 == 0 or Point_search(value) != true ) {
+                if (typedata1 == 0 or !Point_search(value)) {
                     cout << "\nEL TIPO DE DATO INGRESADO NO ES UN\n" << type << endl;
 
                 } else if (typedata1 >= 1.17549e-038 and typedata1 <= 3.40282e+038) {
@@ -269,7 +251,6 @@ public:
             }
         }
     }
-
 
     static bool Operator_Verify(string value){
         std::stringstream mm;
@@ -317,7 +298,6 @@ public:
         Operator_list->append(MULTI_OPERATOR);
         SimplyLinkedList<string> processedLine = Readline(std::move(line));
         return Decodify_line(processedLine);
-
     }
 };
 

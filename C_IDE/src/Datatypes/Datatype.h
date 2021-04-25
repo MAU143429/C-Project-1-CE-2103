@@ -1,7 +1,6 @@
 //
 // Created by njohnson on 3/31/21.
 //
-
 #ifndef C_IDE_DATATYPE_H
 #define C_IDE_DATATYPE_H
 #include <string>

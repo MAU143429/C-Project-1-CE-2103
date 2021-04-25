@@ -5,10 +5,7 @@
 #include "src/Datatypes/Integer.h"
 #include "Translate_Code.h"
 
-
-
 using namespace std;
-
 
 GUI_C::GUI_C(QWidget *parent)
     : QMainWindow(parent)
@@ -25,6 +22,7 @@ GUI_C::~GUI_C()
 
 void GUI_C::on_runbtn_clicked()
 {
+
    mFile = ui->textEdit->toPlainText();
    ofstream MyFile("code.txt");
    MyFile << mFile.toStdString();
@@ -43,7 +41,6 @@ void GUI_C::on_runbtn_clicked()
    RFile.close();
    cont += 1;
 
-
 }
 
 void GUI_C::on_stopbtn_clicked()
@@ -58,7 +55,6 @@ void GUI_C::on_nextbtn_clicked()
     ifstream MyReadFile("code.txt");
     for(int i = 1; i <= cont ; ++i){
         getline (MyReadFile, line);
-
     }
     message = Translate_Code::compile(line);
     cout<<message<<endl;
@@ -82,7 +78,6 @@ void GUI_C::on_clearbtn_clicked()
 void GUI_C::print(string json) {
     string code = ObjectToJSON::GetJSONString("code", json);
 
-
     if(code == RLV_PRINT_RESPONSE){
         string value = ObjectToJSON::GetJSONString("value", json);
         string name = ObjectToJSON::GetJSONString("name", json);
@@ -95,8 +90,6 @@ void GUI_C::print(string json) {
         ui->refbox->append(references.c_str());
         ui->tagbox->append(name.c_str());
         ui->valuebox->append(value.c_str());
-
-
     }
     if(code == STD_PRINT_RESPONSE){
         string printsms = ObjectToJSON::GetJSONString("response", json);
@@ -105,7 +98,6 @@ void GUI_C::print(string json) {
     }if(code == APPLOG_PRINT_RESPONSE){
         string printsms = ObjectToJSON::GetJSONString("response", json);
         ui->aplogbox->append(printsms.c_str());
-
     }
 
 

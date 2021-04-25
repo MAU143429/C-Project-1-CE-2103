@@ -10,18 +10,15 @@
 #include <thread>
 #include <pthread.h>
 
-
-
 using namespace std;
 
 void RunClient(){
-    cout << "\n The client is running \n" << endl;
+    cout << "\n THE CLIENT IS RUNNING \n" << endl;
     Client::getInstance()->initClient();
 }
 
 int RunGUI(int argc, char *argv[]){
-    cout << "GUI is running!" << endl;
-
+    cout << "GUI IS RUNNING!" << endl;
     QApplication a(argc, argv);
     GUI_C w;
     w.show();
@@ -33,10 +30,7 @@ int main(int argc, char *argv[])
     thread runC(RunClient);
     thread runGUI(RunGUI, argc, argv);
 
-
     runC.join();
     runGUI.join();
-
-
 
 }

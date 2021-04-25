@@ -5,7 +5,6 @@
 #ifndef C_IDE_FLOAT_H
 #define C_IDE_FLOAT_H
 
-
 #include "Datatype.h"
 
 using namespace std;

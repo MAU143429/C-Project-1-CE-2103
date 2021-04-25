@@ -51,7 +51,6 @@ public:
         this->tail = NULL;
     }
 
-
     Node<T> *getHead() const {
         return head;
     }
@@ -86,9 +85,7 @@ public:
             this->tail = newElement;
         }
         this->len += 1;
-
     }
-
     void show() const {
 
         if (this->head == nullptr) {
@@ -130,7 +127,6 @@ public:
         }
         return result;
     }
-
 
     void delHead() {
         this->del(this->head->getValue());

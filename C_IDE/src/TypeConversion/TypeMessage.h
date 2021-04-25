@@ -16,7 +16,6 @@ public:
 
     void setModifyvalue(const string &modifyvalue);
 
-public:
     const string &getMemoryAddress() const;
 
     void setMemoryAddress(const string &memoryAddress);
@@ -25,7 +24,6 @@ public:
 
     void setRefCount(const string &refCount);
 
-public:
     const string &getResponse() const;
 
     void setResponse(const string &response);

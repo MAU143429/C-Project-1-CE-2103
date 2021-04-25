@@ -13,7 +13,6 @@ private:
     string name;
     string value;
     int count;
-
 public:
     Char(string name, char value, int count){
         this->name = name;
