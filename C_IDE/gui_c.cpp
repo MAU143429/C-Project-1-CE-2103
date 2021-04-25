@@ -82,6 +82,7 @@ void GUI_C::print(string json) {
 
 
     if(code == RLV_PRINT_RESPONSE){
+        /**
         string value = ObjectToJSON::GetJSONString("value", json);
         string name = ObjectToJSON::GetJSONString("name", json);
         string references = ObjectToJSON::GetJSONString("reference_counter", json);
@@ -90,9 +91,8 @@ void GUI_C::print(string json) {
         ui->mem_box->append(mem_address.c_str());
         ui->refbox->append(references.c_str());
         ui->tagbox->append(name.c_str());
-        ui->valuebox->append(value.c_str());
+        ui->valuebox->append(value.c_str());*/
 
-        
 
     }
     if(code == STD_PRINT_RESPONSE){
