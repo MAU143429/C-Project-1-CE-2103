@@ -11,12 +11,19 @@
 #include <pthread.h>
 
 using namespace std;
-
+/**
+ * @brief runs the client
+ */
 void RunClient(){
     cout << "\n THE CLIENT IS RUNNING \n" << endl;
     Client::getInstance()->initClient();
 }
-
+/**
+ * @brief method that runs the GUI
+ * @param argc
+ * @param argv
+ * @return returns the method QApplication::exec()
+ */
 int RunGUI(int argc, char *argv[]){
     cout << "GUI IS RUNNING!" << endl;
     QApplication a(argc, argv);
@@ -25,6 +32,12 @@ int RunGUI(int argc, char *argv[]){
     return QApplication::exec();
 
 }
+/**
+ * @brief the main method that runs the thread and the application
+ * @param argc
+ * @param argv
+ * @return
+ */
 int main(int argc, char *argv[])
 {
     thread runC(RunClient);
@@ -33,4 +46,5 @@ int main(int argc, char *argv[])
     runC.join();
     runGUI.join();
 
+    return 0;
 }

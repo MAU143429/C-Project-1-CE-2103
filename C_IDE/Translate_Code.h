@@ -41,7 +41,11 @@ static SimplyLinkedList<string> *Operator_vlist;
 
 class Translate_Code {
 public:
-
+    /**
+     * @brief static method that reads a string containing the line from the IDE
+     * @param line
+     * @return the simply linked list of strings
+     */
     static SimplyLinkedList<string> Readline(string line) {
         auto *output = new SimplyLinkedList<string>();
         int cont = 0;
@@ -78,9 +82,11 @@ public:
         output->show();
         return *output;
     }
-
-
-
+    /**
+     * @brief static method that decodifys the lines contained in the simply linked list of strings
+     * @param stringlist
+     * @return the method NewMessageToJSON with the message object created
+     */
     static string Decodify_line(SimplyLinkedList<string> stringlist) {
         auto *message = new TypeMessage();
         // Verifica que la linea ingresada contenga un ;
@@ -145,12 +151,20 @@ public:
             }
         }
     }
-    // metodo struct
+    /**
+     * @brief
+     * @param key
+     * @return
+     */
     bool isStruct(string key) {
 
         return false;
     }
-
+    /**
+     * @brief Method that gets the node searched in the list
+     * @param positionsize
+     * @return the node
+     */
     static string getSize(string positionsize){
         for (int i = 0; i < Type_list->getLen() ; ++i) {
             if(Type_list->get(i) == positionsize){
@@ -158,7 +172,11 @@ public:
             }
         }
     }
-
+    /**
+     * @brief boolean method that searches for a dot in the string received
+     * @param txt
+     * @return a boolean
+     */
     static bool Point_search(string txt) {
         int counter = 0;
         char character;
@@ -175,7 +193,13 @@ public:
         return false;
     }
 
-
+    /**
+     * @brief method that verifies the type of the variable that gets verifies
+     * @param type the type of the variable
+     * @param value the value of the variable
+     * @param Operator the simply linked list of the operators
+     * @return true if the string contained in the type variable matches with the type contained in value, false if not
+     */
     static bool Verify_Type(string type, string value, SimplyLinkedList<string> *Operator) {
         std::stringstream ss;
 
@@ -251,7 +275,11 @@ public:
             }
         }
     }
-
+    /**
+     * @brief a boolean method that verifies if an operator is actually contained in the operator list
+     * @param value
+     * @return true if the operator is in the list of false if its not
+     */
     static bool Operator_Verify(string value){
         std::stringstream mm;
         int counter1 = 0;
@@ -274,11 +302,16 @@ public:
     }
 
 public:
+    /**
+     * @brief method that initializes all the lists of the compiler and appends the elements necessary in the different lists
+     * @param line
+     * @return the Decodify_line method with the processed line linked list
+     */
     string static compile(string line) {
-         Type_list = new SimplyLinkedList<string>();
-         Operator_list = new SimplyLinkedList<string>();
+        Type_list = new SimplyLinkedList<string>();
+        Operator_list = new SimplyLinkedList<string>();
         Operator_vlist = new SimplyLinkedList<string>();
-         Size_list = new SimplyLinkedList<string>();
+        Size_list = new SimplyLinkedList<string>();
         Type_list->append(INTEGER_KEY);
         Type_list->append(FLOAT_KEY);
         Type_list->append(DOUBLE_KEY);

@@ -19,7 +19,9 @@ GUI_C::~GUI_C()
     delete ui;
 
 }
-
+/**
+ * @brief the run button that reads the first line of the IDE
+ */
 void GUI_C::on_runbtn_clicked()
 {
 
@@ -42,13 +44,17 @@ void GUI_C::on_runbtn_clicked()
    cont += 1;
 
 }
-
+/**
+ * @brief method of the button that stops the execution of the IDE
+ */
 void GUI_C::on_stopbtn_clicked()
 {
     cont = 0;
     cout <<"STOPPING EXECUTION"<< endl;
 }
-
+/**
+ * @brief method that executes the next button
+ */
 void GUI_C::on_nextbtn_clicked()
 {
 
@@ -68,13 +74,18 @@ void GUI_C::on_nextbtn_clicked()
     cont += 1;
 
 }
-
+/**
+ * @brief method of the clear button
+ */
 void GUI_C::on_clearbtn_clicked()
 {
     ui->textEdit->clear();
 
 }
-
+/**
+ * @brief method that call GetJSONString method to get the code received from the server and executes a certain action depending of the code
+ * @param json
+ */
 void GUI_C::print(string json) {
     string code = ObjectToJSON::GetJSONString("code", json);
 

@@ -54,7 +54,10 @@ public:
     Node<T> *getHead() const {
         return head;
     }
-
+    /**
+     * @brief Deletes an element in the list
+     * @param element
+     */
     void del(T element) {
 
         if (element == this->head->getValue()) {
@@ -73,7 +76,10 @@ public:
             }
         }
     }
-
+    /**
+     * @brief Appends an element in the list
+     * @param element
+     */
     void append(T element) {
         auto *newElement = (Node<T> *) (malloc(sizeof(Node<T>)));
         newElement = new(newElement) Node<T>(element);
@@ -86,6 +92,9 @@ public:
         }
         this->len += 1;
     }
+    /**
+     * @brief prints the simply linked list
+     */
     void show() const {
 
         if (this->head == nullptr) {
@@ -100,7 +109,11 @@ public:
             cout << tmp->getValue() << "]" << "\n";
         }
     }
-
+    /**
+     * @brief method that searches for the position inserted and gets the value
+     * @param i
+     * @return
+     */
     T get(int i) {
 
         if (i >= this->len) {
@@ -114,7 +127,11 @@ public:
         }
         return tmp->getValue();
     }
-
+    /**
+     * @brief searches for an element contained in the list
+     * @param element
+     * @return returns true if the item is contained in the list, false if not.
+     */
     bool boolSearch(T element) {
         bool result = false;
         Node<T> *tmp = this->head;
@@ -127,7 +144,9 @@ public:
         }
         return result;
     }
-
+    /**
+     * @brief deletes the head
+     */
     void delHead() {
         this->del(this->head->getValue());
     }

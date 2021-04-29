@@ -43,13 +43,16 @@ public:
         Datatype::count = count;
     }
     /**
-     * @brief
-     * @return
+     * @brief Getter for the value variable
+     * @return the value
      */
     virtual string getValue() const {
         return value;
     }
-
+    /**
+     * @brief Setter for the value
+     * @param value
+     */
     virtual void setValue( string value) {
         Datatype::value = value;
     }

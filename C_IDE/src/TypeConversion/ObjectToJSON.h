@@ -16,6 +16,11 @@ using namespace std;
 
 class ObjectToJSON{
 public:
+    /**
+     * @brief Method that casts a TypeMessage object to a JSON string
+     * @param message
+     * @return the JSON string
+     */
     static string NewMessageToJSON(TypeMessage *message){
         const string& action = message->getAction();
         const string& response = message->getResponse();
@@ -66,8 +71,13 @@ public:
         writer.EndObject();
         return stringBuffer.GetString();
     }
-
-    static string GetJSONString(string key,const string &jsonString){
+    /**
+     * @brief Method that gets a key contained in the JSON
+     * @param key
+     * @param jsonString
+     * @return the string containing the key that was searched
+     */
+    static string GetJSONString(const string& key,const string &jsonString){
         rapidjson::Document document;
         document.Parse<kParseDefaultFlags>(jsonString.c_str());
         const char *searchedString;

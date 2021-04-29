@@ -29,7 +29,10 @@ public:
     void operator=(const Client &) = delete;
     Client(Client &other) = delete;
 
-
+    /**
+     * @brief Method that initializes the client
+     * @return -1 if the socket could not connect
+     */
     int initClient()
     {
         //	Create a socket
