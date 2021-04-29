@@ -1,0 +1,18 @@
+digraph "C_IDE/src" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_46bc61e41ffaca8cfc36bd64d6e54c14 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="C_IDE" fontname="Helvetica", fontsize="10", URL="dir_46bc61e41ffaca8cfc36bd64d6e54c14.html"]
+  subgraph clusterdir_28437bac4bd1b69b02bbd84dd97a031d {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_28437bac4bd1b69b02bbd84dd97a031d.html"];
+    dir_28437bac4bd1b69b02bbd84dd97a031d [shape=plaintext label="src"];
+    dir_6ac0646d7ea05bcfc24f667ceb564a5d [shape=box label="DataStructure" color="black" fillcolor="white" style="filled" URL="dir_6ac0646d7ea05bcfc24f667ceb564a5d.html"];
+    dir_ec4961998161d191d702e4f7c2f2b1ba [shape=box label="Datatypes" color="black" fillcolor="white" style="filled" URL="dir_ec4961998161d191d702e4f7c2f2b1ba.html"];
+    dir_5089eb1a6b991848b7798f048a574a58 [shape=box label="Socket" color="black" fillcolor="white" style="filled" URL="dir_5089eb1a6b991848b7798f048a574a58.html"];
+    dir_132882ff16e9caa6332df22aca0f31e8 [shape=box label="TypeConversion" color="black" fillcolor="white" style="filled" URL="dir_132882ff16e9caa6332df22aca0f31e8.html"];
+  }
+  }
+  dir_364e22b88a1e6a953958ae2fab82bbf2 [shape=box label="lib" fillcolor="white" style="filled" color="red" URL="dir_364e22b88a1e6a953958ae2fab82bbf2.html"];
+  dir_132882ff16e9caa6332df22aca0f31e8->dir_364e22b88a1e6a953958ae2fab82bbf2 [headlabel="1", labeldistance=1.5 headhref="dir_000027_000018.html"];
+}

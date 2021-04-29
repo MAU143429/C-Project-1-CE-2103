@@ -1,0 +1,9 @@
+digraph "C_IDE/lib/rapidjson/internal" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_2d8aca4267af83d815867c9446898552 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="rapidjson" fontname="Helvetica", fontsize="10", URL="dir_2d8aca4267af83d815867c9446898552.html"]
+  dir_36261212648d990079bd1dfcb5ba6190 [shape=box, label="internal", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_36261212648d990079bd1dfcb5ba6190.html"];
+  }
+}

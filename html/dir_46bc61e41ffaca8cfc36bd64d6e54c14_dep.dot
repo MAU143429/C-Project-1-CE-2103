@@ -1,0 +1,13 @@
+digraph "C_IDE" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_46bc61e41ffaca8cfc36bd64d6e54c14 {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_46bc61e41ffaca8cfc36bd64d6e54c14.html"];
+    dir_46bc61e41ffaca8cfc36bd64d6e54c14 [shape=plaintext label="C_IDE"];
+    dir_90611356f0e2ab0d877a9d9994c6ac99 [shape=box label="cmake-build-debug" color="red" fillcolor="white" style="filled" URL="dir_90611356f0e2ab0d877a9d9994c6ac99.html"];
+    dir_364e22b88a1e6a953958ae2fab82bbf2 [shape=box label="lib" color="red" fillcolor="white" style="filled" URL="dir_364e22b88a1e6a953958ae2fab82bbf2.html"];
+    dir_28437bac4bd1b69b02bbd84dd97a031d [shape=box label="src" color="red" fillcolor="white" style="filled" URL="dir_28437bac4bd1b69b02bbd84dd97a031d.html"];
+  }
+  dir_28437bac4bd1b69b02bbd84dd97a031d->dir_364e22b88a1e6a953958ae2fab82bbf2 [headlabel="1", labeldistance=1.5 headhref="dir_000023_000018.html"];
+}
