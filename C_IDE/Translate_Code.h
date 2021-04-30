@@ -112,7 +112,14 @@ public:
 
                         //Verifica que el valor ha ingresar coincida con el tipo de valor y no sean erroneos
                         if(Verify_Type(stringlist.get(0),stringlist.get(3),Operator_list)){
-                            message->setValue(stringlist.get(3));
+                            if(stringlist.get(0) == "Char"){
+                                string char1;
+                                char1 = stringlist.get(3)[1];
+                                message->setValue(char1);
+                            }else{
+                                message->setValue(stringlist.get(3));
+                            }
+
                         }else{
                             //std::cout << "\n ERROR: INGRESE UN VALOR ADECUADO AL TIPO DE DATO QUE DESEA CREAR\n";
                             //TODO INGRESAR EL ERROR 201 y PARAR LA EJECUCION
