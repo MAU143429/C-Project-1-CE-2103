@@ -290,7 +290,7 @@ public:
             character1 = value[counter1];
             mm << character1;
             mm >> output;
-            if (Operator_list->boolSearch(output)) {
+            if (Operator_list->boolSearch(output)){
                 return true;
             } else {
                 output.clear();
