@@ -84,4 +84,12 @@ void TypeMessage::setModifyvalue(const string &modifyvalue) {
     TypeMessage::modifyvalue = modifyvalue;
 }
 
+const string &TypeMessage::getPrint() const {
+    return print;
+}
+
+void TypeMessage::setPrint(const string &print) {
+    TypeMessage::print = print;
+}
+
 

@@ -33,13 +33,17 @@ void GUI_C::on_runbtn_clicked()
    getline(RFile,line);
    message = Translate_Code::compile(line);
    cout<<message<<endl;
-   Client::getInstance()->Send(message.c_str());
-   string response;
-   while(response.empty()){
-        response = Client::getInstance()->ReadString();
+   if(ObjectToJSON::GetJSONString("action",message) == "PRINT"){
+       print(message);
+   }else{
+       Client::getInstance()->Send(message.c_str());
+       string response;
+       while(response.empty()){
+           response = Client::getInstance()->ReadString();
+       }
+       Client::getInstance()->setResponse("");
+       print(response);
    }
-   Client::getInstance()->setResponse("");
-   print(response);
    RFile.close();
    cont += 1;
 
@@ -64,13 +68,18 @@ void GUI_C::on_nextbtn_clicked()
     }
     message = Translate_Code::compile(line);
     cout<<message<<endl;
-    Client::getInstance()->Send(message.c_str());
-    string response;
-    while(response.empty()){
-        response = Client::getInstance()->ReadString();
+    if(ObjectToJSON::GetJSONString("action",message) == "PRINT"){
+        print(message);
+    }else{
+        Client::getInstance()->Send(message.c_str());
+        string response;
+        while(response.empty()){
+            response = Client::getInstance()->ReadString();
+        }
+        Client::getInstance()->setResponse("");
+        print(response);
     }
-    Client::getInstance()->setResponse("");
-    print(response);
+
     cont += 1;
 
 }
@@ -88,19 +97,24 @@ void GUI_C::on_clearbtn_clicked()
  */
 void GUI_C::print(string json) {
     string code = ObjectToJSON::GetJSONString("code", json);
-
+    cout<<"MI CODIGO ES "<<code<<endl;
     if(code == RLV_PRINT_RESPONSE){
         string value = ObjectToJSON::GetJSONString("value", json);
         string name = ObjectToJSON::GetJSONString("name", json);
         string references = (ObjectToJSON::GetJSONString("ref_count", json));
         string mem_address = ObjectToJSON::GetJSONString("mem_address", json);
         string printsms = ObjectToJSON::GetJSONString("response", json);
-
-        ui->aplogbox->append(printsms.c_str());
-        ui->mem_box->append(mem_address.c_str());
-        ui->refbox->append(references.c_str());
-        ui->tagbox->append(name.c_str());
-        ui->valuebox->append(value.c_str());
+        string printmethod = ObjectToJSON::GetJSONString("print", json);
+        if(printmethod != "1"){
+            ui->stdoutbox->append(printmethod.c_str());
+            ui->aplogbox->append(printsms.c_str());
+        }else{
+            ui->aplogbox->append(printsms.c_str());
+            ui->mem_box->append(mem_address.c_str());
+            ui->refbox->append(references.c_str());
+            ui->tagbox->append(name.c_str());
+            ui->valuebox->append(value.c_str());
+        }
     }
 
 }
