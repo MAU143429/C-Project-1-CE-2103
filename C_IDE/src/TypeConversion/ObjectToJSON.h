@@ -29,6 +29,7 @@ public:
         const string& name = message->getName();
         const string& value = message->getValue();
         const string& code = message->getCode();
+        const string& print = message->getPrint();
         const string &modifyvalue = message->getModifyvalue();
         const string &RefCount = message->getRefCount();
         const string &MemoryAddress = message->getMemoryAddress();
@@ -51,6 +52,9 @@ public:
 
         writer.Key("name");
         writer.String(name.c_str());
+
+        writer.Key("print");
+        writer.String(print.c_str());
 
         writer.Key("value");
         writer.String(value.c_str());

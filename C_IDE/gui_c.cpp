@@ -104,7 +104,6 @@ void GUI_C::on_clearbtn_clicked()
  */
 void GUI_C::print(string json) {
     string code = ObjectToJSON::GetJSONString("code", json);
-    cout<<"MI CODIGO ES "<<code<<endl;
     if(code == RLV_PRINT_RESPONSE){
         string value = ObjectToJSON::GetJSONString("value", json);
         string name = ObjectToJSON::GetJSONString("name", json);

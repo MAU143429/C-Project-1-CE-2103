@@ -12,6 +12,7 @@
 #include "iostream"
 #include "sstream"
 #include "src/Socket/Client.h"
+#include "src/TypeConversion/Convert_Value.h"
 
 using namespace std;
 
@@ -38,6 +39,7 @@ static SimplyLinkedList<string> *Type_list;
 static SimplyLinkedList<string> *Size_list;
 static SimplyLinkedList<string> *Operator_list;
 static SimplyLinkedList<string> *Operator_vlist;
+static SimplyLinkedList<string> *Number_list;
 
 class Translate_Code {
 public:
@@ -89,11 +91,16 @@ public:
      */
     static string Decodify_line(SimplyLinkedList<string> stringlist) {
         auto *message = new TypeMessage();
+        auto *response = new TypeMessage();
         // Verifica que la linea ingresada contenga un ;
         int ultpos = (stringlist.getLen()-1);
         if (stringlist.get(ultpos) != ";"){
-            //std::cout << "\n FATAL ERROR " << ";" << " WASN'T DETECTED\n";
-            //TODO INGRESAR ERROR 200
+            response->setCode("100");
+            response->setResponse("FATAL ERROR:  ; WASN'T DETECTED");
+            response->setPrint("FATAL ERROR:  ; WASN'T DETECTED");
+            response->setAction("PRINT");
+            return ObjectToJSON::NewMessageToJSON(response);
+
         }
         //Decodifica la linea de codigo
         if (Type_list->boolSearch(stringlist.get(0))) {
@@ -109,24 +116,42 @@ public:
 
                     // Verifica que el valor de la variable a ingresar tenga sentido
                     if (!Type_list->boolSearch(stringlist.get(3))) {
-
-                        //Verifica que el valor ha ingresar coincida con el tipo de valor y no sean erroneos
-                        if(Verify_Type(stringlist.get(0),stringlist.get(3),Operator_list)){
-                            if(stringlist.get(0) == "Char"){
-                                string char1;
-                                char1 = stringlist.get(3)[1];
-                                message->setValue(char1);
+                        if(Operator_Verify(stringlist.get(3))){
+                            string value = Solve<string>(stringlist.get(3),stringlist.get(0));
+                            if(Verify_Type(stringlist.get(0),value,Operator_list)){
+                                message->setValue(value);
                             }else{
-                                message->setValue(stringlist.get(3));
+                                response->setCode("100");
+                                response->setResponse("ERROR: INGRESE UN VALOR ADECUADO AL TIPO DE DATO QUE DESEA CREAR");
+                                response->setPrint("ERROR: INGRESE UN VALOR ADECUADO AL TIPO DE DATO QUE DESEA CREAR");
+                                response->setAction("PRINT");
+                                return ObjectToJSON::NewMessageToJSON(response);
                             }
-
                         }else{
-                            //std::cout << "\n ERROR: INGRESE UN VALOR ADECUADO AL TIPO DE DATO QUE DESEA CREAR\n";
-                            //TODO INGRESAR EL ERROR 201 y PARAR LA EJECUCION
+                            //Verifica que el valor ha ingresar coincida con el tipo de valor y no sean erroneos
+                            if(Verify_Type(stringlist.get(0),stringlist.get(3),Operator_list)){
+                                if(stringlist.get(0) == "Char"){
+                                    string char1;
+                                    char1 = stringlist.get(3)[1];
+                                    message->setValue(char1);
+                                }else{
+                                    message->setValue(stringlist.get(3));
+                                }
+
+                            }else{
+                                response->setCode("100");
+                                response->setResponse("ERROR: INGRESE UN VALOR ADECUADO AL TIPO DE DATO QUE DESEA CREAR");
+                                response->setPrint("ERROR: INGRESE UN VALOR ADECUADO AL TIPO DE DATO QUE DESEA CREAR");
+                                response->setAction("PRINT");
+                                return ObjectToJSON::NewMessageToJSON(response);
+                            }
                         }
                     } else{
-                        //std::cout << "\n ERROR: EL NOMBRE DEL VALOR QUE DESEA CREAR NO ES VALIDO\n";
-                        //TODO INGRESAR EL ERROR 202 y PARAR LA EJECUCION
+                        response->setCode("100");
+                        response->setResponse("ERROR: EL NOMBRE DEL VALOR QUE DESEA CREAR NO ES VALIDO");
+                        response->setPrint("ERROR: EL NOMBRE DEL VALOR QUE DESEA CREAR NO ES VALIDO");
+                        response->setAction("PRINT");
+                        return ObjectToJSON::NewMessageToJSON(response);
                     }
                 } else {
                     // Verifica que solo se esta declarando y asigna un valor de 0 la variable
@@ -137,13 +162,20 @@ public:
                             message->setValue(" ");
                         }
                     }else{
-                        //cout << "\nERROR CON EL OPERADOR A UTILIZAR\n";
-                        //TODO INGRESAR EL ERROR 203 y PARAR LA EJECUCION
+                        response->setCode("100");
+                        response->setResponse("ERROR CON EL OPERADOR A UTILIZAR");
+                        response->setPrint("ERROR CON EL OPERADOR A UTILIZAR");
+                        response->setAction("PRINT");
+                        return ObjectToJSON::NewMessageToJSON(response);
                     }
                 }
             } else {
-                //cout<< "\nFATAL ERROR: EL NOMBRE DE LA VARIABLE QUE INGRESO YA SE ENCUENTRA CREADO O NO ES VALIDO\n";
-                //TODO INGRESAR EL ERROR 204 y PARAR LA EJECUCION
+                response->setCode("100");
+                response->setPrint("FATAL ERROR: EL NOMBRE DE LA VARIABLE QUE INGRESO YA SE ENCUENTRA CREADO O NO ES VALIDO");
+                response->setResponse("FATAL ERROR: EL NOMBRE DE LA VARIABLE QUE INGRESO YA SE ENCUENTRA CREADO O NO ES VALIDO");
+                response->setAction("PRINT");
+                return ObjectToJSON::NewMessageToJSON(response);
+
             }
             return ObjectToJSON::NewMessageToJSON(message);
         }
@@ -216,77 +248,73 @@ public:
     static bool Verify_Type(string type, string value, SimplyLinkedList<string> *Operator) {
         std::stringstream ss;
 
-        if (Operator_Verify(value)) {
-            cout << "\nENVIANDO DATO AL SERVIDOR PARA QUE SEA ANALIZADO\n" << endl;
-            return true;
-        } else {
-            //int and long method
-            if (type == "Integer" or type == "Long") {
-                long typedata;
-                ss << value;
-                ss >> typedata;
-                if (typedata == 0 or Point_search(value)) {
-                    cout << "\nEL TIPO DE DATO INGRESADO NO ES UN\n" << type << endl;
-                } else if (typedata >= -2147483648 and typedata <= 2147483647) {
-                    if (type == "Integer") {
-                        return true;
-                    } else if(type == "Long") {
-                        return true;
-                    }else{
-                        return false;
-                    }
-                } else if (typedata >= INTMAX_MIN and typedata <= INTMAX_MAX) {
-                    if (type == "Long") {
-                        return true;
-                    } else {
-                        cout << "\nDATA OUT OF RANGE\n" << endl;
-                        return false;
-                    }
-                } else {
-                    cout << "\nTIPO DE DATO NO ENCONTRADO\n" << endl;
-                }
-            }
-            //float an double method
-            if (type == "Float" or type == "Double") {
-                double typedata1;
-                ss << value;
-                ss >> typedata1;
-
-                if (typedata1 == 0 or !Point_search(value)) {
-                    cout << "\nEL TIPO DE DATO INGRESADO NO ES UN\n" << type << endl;
-
-                } else if (typedata1 >= 1.17549e-038 and typedata1 <= 3.40282e+038) {
-                    if (type == "Float") {
-                        return true;
-                    } else if(type == "Long") {
-                        return true;
-                    }else{
-                        return false;
-                    }
-                } else if (typedata1 >= 2.22507e-308 and typedata1 <= 1.79769e+308) {
-                    if (type == "Double") {
-                        return true;
-                    } else {
-                        cout << "\nDATA OUT OF RANGE\n" << endl;
-                        return false;
-                    }
-                } else {
-                    cout << "\nTIPO DE DATO NO ENCONTRADO\n" << endl;
-                }
-            }
-            //char method
-            if (type == "Char") {
-                string char1,char2;
-                char1 = value[0];
-                char2 = value[2];
-
-                if(char1 == "'" and char2 == "'"){
+        //int and long method
+        if (type == "Integer" or type == "Long") {
+            long typedata;
+            ss << value;
+            ss >> typedata;
+            if (typedata == 0 or Point_search(value)) {
+                cout << "\nEL TIPO DE DATO INGRESADO NO ES UN\n" << type << endl;
+            } else if (typedata >= -2147483648 and typedata <= 2147483647) {
+                if (type == "Integer") {
                     return true;
-                } else{
+                } else if(type == "Long") {
+                    return true;
+                }else{
                     return false;
                 }
+            } else if (typedata >= INTMAX_MIN and typedata <= INTMAX_MAX) {
+                if (type == "Long") {
+                    return true;
+                } else {
+                    cout << "\nDATA OUT OF RANGE\n" << endl;
+                    return false;
+                }
+            } else {
+                cout << "\nTIPO DE DATO NO ENCONTRADO\n" << endl;
             }
         }
+        //float an double method
+        if (type == "Float" or type == "Double") {
+            double typedata1;
+            ss << value;
+            ss >> typedata1;
+
+            if (typedata1 == 0 or !Point_search(value)) {
+                cout << "\nEL TIPO DE DATO INGRESADO NO ES UN\n" << type << endl;
+
+            } else if (typedata1 >= 1.17549e-038 and typedata1 <= 3.40282e+038) {
+                if (type == "Float") {
+                    return true;
+                } else if(type == "Long") {
+                    return true;
+                }else{
+                    return false;
+                }
+            } else if (typedata1 >= 2.22507e-308 and typedata1 <= 1.79769e+308) {
+                if (type == "Double") {
+                    return true;
+                } else {
+                    cout << "\nDATA OUT OF RANGE\n" << endl;
+                    return false;
+                }
+            } else {
+                cout << "\nTIPO DE DATO NO ENCONTRADO\n" << endl;
+            }
+        }
+        //char method
+        if (type == "Char") {
+            string char1,char2;
+            char1 = value[0];
+            char2 = value[2];
+
+            if(char1 == "'" and char2 == "'"){
+                return true;
+            } else{
+                return false;
+            }
+        }
+
     }
     /**
      * @brief a boolean method that verifies if an operator is actually contained in the operator list
@@ -314,6 +342,119 @@ public:
         return false;
     }
 
+    static SimplyLinkedList<string> *SeparateOperator (string value){
+        auto separate_list = new SimplyLinkedList<string>();
+        int cont = 0;
+        char c;
+        string note;
+        string s;
+
+        while (cont < value.length()) {
+            s.clear();
+            c = value[cont];
+            s.push_back(c);
+            if (Operator_list->boolSearch(s)) {
+                if(!note.empty()){
+                    separate_list->append(note);
+                    note.clear();
+                    note.push_back(c);
+                    separate_list->append(s);
+                    note.clear();
+                }
+            }else if (isblank(c))
+            {
+                if(!note.empty()){
+                    separate_list->append(note);
+                    note.clear();
+                }
+            }
+            else{
+                note.push_back(c);
+            }
+            cont++;
+        }
+        separate_list->append(note);
+        separate_list->show();
+        return separate_list;
+    }
+
+    template<typename T>
+    static string Solve(string value,string type){
+        auto separatelist = new SimplyLinkedList<string>();
+        separatelist = SeparateOperator(value);
+        int cont = 0;
+        T total,num;
+        while(cont < separatelist->getLen()){
+            if(isNum(separatelist->get(cont))){
+
+                if(type == "Integer"){
+                    num = Cast_to_Type::Cast_int<int>(separatelist->get(cont).c_str());
+                }else if(type == "Long"){
+                    num = Cast_to_Type::Cast_long<long>(separatelist->get(cont).c_str());
+                }else if(type == "Float"){
+                    num = Cast_to_Type::Cast_float<float>(separatelist->get(cont).c_str());
+                }else if(type == "Double"){
+                    num = Cast_to_Type::Cast_double<double>(separatelist->get(cont).c_str());
+                }else if(type == "Char"){
+                    num = Cast_to_Type::Cast_char<char>(separatelist->get(cont).c_str());
+                }
+
+                if(!Verify_Type(type,num,Operator_list)){
+                    return "ERROR EL VALOR INGRESADO NO CORRESPONDE AL TIPO DE DATO ESPECIFICADO";
+                }else{
+                    if(cont == 0){
+                        total = num;
+                    }else{
+                        if(separatelist->get(cont-1) == "+"){
+                            total += num;
+                        }else if(separatelist->get(cont-1) == "-"){
+                            total -= num;
+                        }else if(separatelist->get(cont-1) == "/"){
+                            total = total/num;
+                        }else if(separatelist->get(cont-1) == "*"){
+                            total = total * num;
+                        }
+                    }
+
+                }
+
+            }else{
+              // TODO Metodo que consulte la existencia de la posible variable.
+            }
+            cont += 2;
+        }
+        if(type == "Integer"){
+            return to_string(total);
+        }else if(type == "Long"){
+            return to_string(total);
+        }else if(type == "Float"){
+            return to_string(total);
+        }else if(type == "Double"){
+            return to_string(total);
+        }else if(type == "Char"){
+            // TODO CONVERSOR DE CHAR
+        }
+    }
+
+    static bool isNum(string num) {
+        int cont = 0;
+        char c;
+        string note;
+        string s;
+
+        while (cont < num.length()) {
+            s.clear();
+            c = num[cont];
+            s.push_back(c);
+            if (Number_list->boolSearch(s)) {
+                cont++;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
 public:
     /**
      * @brief method that initializes all the lists of the compiler and appends the elements necessary in the different lists
@@ -325,6 +466,7 @@ public:
         Operator_list = new SimplyLinkedList<string>();
         Operator_vlist = new SimplyLinkedList<string>();
         Size_list = new SimplyLinkedList<string>();
+        Number_list = new SimplyLinkedList<string>();
         Type_list->append(INTEGER_KEY);
         Type_list->append(FLOAT_KEY);
         Type_list->append(DOUBLE_KEY);
@@ -342,6 +484,16 @@ public:
         Operator_list->append(SUBTRAC_OPERATOR);
         Operator_list->append(DIV_OPERATOR);
         Operator_list->append(MULTI_OPERATOR);
+        Number_list->append("0");
+        Number_list->append("1");
+        Number_list->append("2");
+        Number_list->append("3");
+        Number_list->append("4");
+        Number_list->append("5");
+        Number_list->append("6");
+        Number_list->append("7");
+        Number_list->append("8");
+        Number_list->append("9");
         SimplyLinkedList<string> processedLine = Readline(std::move(line));
         return Decodify_line(processedLine);
     }
