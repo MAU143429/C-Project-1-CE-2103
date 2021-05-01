@@ -53,8 +53,15 @@ void GUI_C::on_runbtn_clicked()
  */
 void GUI_C::on_stopbtn_clicked()
 {
+    ui->stdoutbox->clear();
+    ui->aplogbox->clear();
+    ui->refbox->clear();
+    ui->tagbox->clear();
+    ui->valuebox->clear();
+    ui->mem_box->clear();
+    ui->stdoutbox->append("STOPPING EXECUTION");
     cont = 0;
-    cout <<"STOPPING EXECUTION"<< endl;
+
 }
 /**
  * @brief method that executes the next button
