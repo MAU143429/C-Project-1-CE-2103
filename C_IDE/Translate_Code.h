@@ -150,11 +150,17 @@ public:
         // Metodo para cuando no se quiere crear una instancia
         else  {
             auto *modify_message = new TypeMessage();
+            auto *print_message = new TypeMessage();
             if(Operator_vlist->boolSearch(stringlist.get(1))){
                 modify_message->setAction("MODIFY");
                 modify_message->setModifyvalue(stringlist.get(2));
                 modify_message->setName(stringlist.get(0));
                 return ObjectToJSON::NewMessageToJSON(modify_message);
+            }
+            if(stringlist.get(0) == "print"){
+                print_message->setAction("SEARCH");
+                print_message->setName(stringlist.get(1));
+                return ObjectToJSON::NewMessageToJSON(print_message);
             }
         }
     }
