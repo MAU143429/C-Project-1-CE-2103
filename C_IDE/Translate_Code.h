@@ -117,7 +117,7 @@ public:
                     // Verifica que el valor de la variable a ingresar tenga sentido
                     if (!Type_list->boolSearch(stringlist.get(3))) {
                         if(Operator_Verify(stringlist.get(3))){
-                            string value = Solve<string>(stringlist.get(3),stringlist.get(0));
+                            string value = Solve(stringlist.get(3),stringlist.get(0));
                             if(Verify_Type(stringlist.get(0),value,Operator_list)){
                                 message->setValue(value);
                             }else{
@@ -184,10 +184,10 @@ public:
             auto *modify_message = new TypeMessage();
             auto *print_message = new TypeMessage();
             if(Operator_vlist->boolSearch(stringlist.get(1))){
-                modify_message->setAction("MODIFY");
-                modify_message->setModifyvalue(stringlist.get(2));
-                modify_message->setName(stringlist.get(0));
-                return ObjectToJSON::NewMessageToJSON(modify_message);
+                    modify_message->setAction("MODIFY");
+                    modify_message->setModifyvalue(stringlist.get(2));
+                    modify_message->setName(stringlist.get(0));
+                    return ObjectToJSON::NewMessageToJSON(modify_message);
             }
             if(stringlist.get(0) == "print"){
                 print_message->setAction("SEARCH");
@@ -254,7 +254,7 @@ public:
             ss << value;
             ss >> typedata;
             if (typedata == 0 or Point_search(value)) {
-                cout << "\nEL TIPO DE DATO INGRESADO NO ES UN\n" << type << endl;
+                return false;
             } else if (typedata >= -2147483648 and typedata <= 2147483647) {
                 if (type == "Integer") {
                     return true;
@@ -272,6 +272,7 @@ public:
                 }
             } else {
                 cout << "\nTIPO DE DATO NO ENCONTRADO\n" << endl;
+                return false;
             }
         }
         //float an double method
@@ -282,7 +283,7 @@ public:
 
             if (typedata1 == 0 or !Point_search(value)) {
                 cout << "\nEL TIPO DE DATO INGRESADO NO ES UN\n" << type << endl;
-
+                return false;
             } else if (typedata1 >= 1.17549e-038 and typedata1 <= 3.40282e+038) {
                 if (type == "Float") {
                     return true;
@@ -300,6 +301,7 @@ public:
                 }
             } else {
                 cout << "\nTIPO DE DATO NO ENCONTRADO\n" << endl;
+                return false;
             }
         }
         //char method
@@ -378,61 +380,93 @@ public:
         return separate_list;
     }
 
-    template<typename T>
+
     static string Solve(string value,string type){
         auto separatelist = new SimplyLinkedList<string>();
         separatelist = SeparateOperator(value);
         int cont = 0;
-        T total,num;
+        int varint,totalint;
+        float varfloat,totalfloat;
+        double vardouble,totaldouble;
+        long varlong,totallong;
+
         while(cont < separatelist->getLen()){
             if(isNum(separatelist->get(cont))){
 
                 if(type == "Integer"){
-                    num = Cast_to_Type::Cast_int<int>(separatelist->get(cont).c_str());
-                }else if(type == "Long"){
-                    num = Cast_to_Type::Cast_long<long>(separatelist->get(cont).c_str());
-                }else if(type == "Float"){
-                    num = Cast_to_Type::Cast_float<float>(separatelist->get(cont).c_str());
-                }else if(type == "Double"){
-                    num = Cast_to_Type::Cast_double<double>(separatelist->get(cont).c_str());
-                }else if(type == "Char"){
-                    num = Cast_to_Type::Cast_char<char>(separatelist->get(cont).c_str());
-                }
-
-                if(!Verify_Type(type,num,Operator_list)){
-                    return "ERROR EL VALOR INGRESADO NO CORRESPONDE AL TIPO DE DATO ESPECIFICADO";
-                }else{
+                    varint = Cast_to_Type::Cast_int<int>(separatelist->get(cont).c_str());
                     if(cont == 0){
-                        total = num;
-                    }else{
-                        if(separatelist->get(cont-1) == "+"){
-                            total += num;
-                        }else if(separatelist->get(cont-1) == "-"){
-                            total -= num;
-                        }else if(separatelist->get(cont-1) == "/"){
-                            total = total/num;
-                        }else if(separatelist->get(cont-1) == "*"){
-                            total = total * num;
+                        totalint = varint;
+                    }else {
+                        if (separatelist->get(cont - 1) == "+") {
+                            totalint += varint;
+                        } else if (separatelist->get(cont - 1) == "-") {
+                            totalint -= varint;
+                        } else if (separatelist->get(cont - 1) == "/") {
+                            totalint /= varint;
+                        } else if (separatelist->get(cont - 1) == "*") {
+                            totalint *= varint;
                         }
                     }
-
+                }else if(type == "Long"){
+                    varlong = Cast_to_Type::Cast_long<long>(separatelist->get(cont).c_str());
+                    if(cont == 0){
+                        totallong = varlong;
+                    }else {
+                        if (separatelist->get(cont - 1) == "+") {
+                            totallong += varlong;
+                        } else if (separatelist->get(cont - 1) == "-") {
+                            totallong -= varlong;
+                        } else if (separatelist->get(cont - 1) == "/") {
+                            totallong /= varlong;
+                        } else if (separatelist->get(cont - 1) == "*") {
+                            totallong *= varlong;
+                        }
+                    }
+                }else if(type == "Float"){
+                    totalfloat = Cast_to_Type::Cast_float<float>(separatelist->get(cont).c_str());
+                    if(cont == 0){
+                        totalfloat = varfloat;
+                    }else {
+                        if (separatelist->get(cont - 1) == "+") {
+                            totalfloat += varfloat;
+                        } else if (separatelist->get(cont - 1) == "-") {
+                            totalfloat -= varfloat;
+                        } else if (separatelist->get(cont - 1) == "/") {
+                            totalfloat /= varfloat;
+                        } else if (separatelist->get(cont - 1) == "*") {
+                            totalfloat *= varfloat;
+                        }
+                    }
+                }else if(type == "Double"){
+                    totaldouble = Cast_to_Type::Cast_double<double>(separatelist->get(cont).c_str());
+                    if(cont == 0){
+                        totaldouble = vardouble;
+                    }else {
+                        if (separatelist->get(cont - 1) == "+") {
+                            totaldouble += vardouble;
+                        } else if (separatelist->get(cont - 1) == "-") {
+                            totaldouble -= vardouble;
+                        } else if (separatelist->get(cont - 1) == "/") {
+                            totaldouble /= vardouble;
+                        } else if (separatelist->get(cont - 1) == "*") {
+                            totaldouble *= vardouble;
+                        }
+                    }
                 }
-
             }else{
               // TODO Metodo que consulte la existencia de la posible variable.
             }
             cont += 2;
         }
         if(type == "Integer"){
-            return to_string(total);
+            return to_string(totalint);
         }else if(type == "Long"){
-            return to_string(total);
+            return to_string(totallong);
         }else if(type == "Float"){
-            return to_string(total);
+            return to_string(totalfloat);
         }else if(type == "Double"){
-            return to_string(total);
-        }else if(type == "Char"){
-            // TODO CONVERSOR DE CHAR
+            return to_string(totaldouble);
         }
     }
 

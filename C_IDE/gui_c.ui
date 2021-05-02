@@ -208,7 +208,7 @@
      <rect>
       <x>580</x>
       <y>50</y>
-      <width>111</width>
+      <width>121</width>
       <height>591</height>
      </rect>
     </property>
@@ -216,7 +216,7 @@
    <widget class="QTextBrowser" name="valuebox">
     <property name="geometry">
      <rect>
-      <x>690</x>
+      <x>700</x>
       <y>50</y>
       <width>121</width>
       <height>591</height>
@@ -226,9 +226,9 @@
    <widget class="QTextBrowser" name="tagbox">
     <property name="geometry">
      <rect>
-      <x>810</x>
+      <x>820</x>
       <y>50</y>
-      <width>101</width>
+      <width>111</width>
       <height>591</height>
      </rect>
     </property>
@@ -236,9 +236,9 @@
    <widget class="QTextBrowser" name="refbox">
     <property name="geometry">
      <rect>
-      <x>910</x>
+      <x>930</x>
       <y>50</y>
-      <width>61</width>
+      <width>41</width>
       <height>591</height>
      </rect>
     </property>
