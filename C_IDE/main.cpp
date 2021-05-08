@@ -33,8 +33,10 @@ int RunGUI(int argc, char *argv[]){
 
 }
 
-void main_v2(int port){
+void main_v2(int port,int argc, char *argv[]){
     thread runC(RunClient,port);
+    thread runGUI(RunGUI, argc, argv);
+    runGUI.join();
     runC.join();
 }
 
@@ -46,13 +48,18 @@ void main_v2(int port){
  */
 int main(int argc, char *argv[])
 {
+
+    cout<< DBL_MIN <<endl;
+    cout<< DBL_MAX <<endl;
+    cout<< FLT_MIN<<endl;
+    cout<< FLT_MAX <<endl;
+
     int port;
     string userInput;
     cout<< "Define the port of the client: " ;
     getline(cin, userInput);
     port = atoi(userInput.c_str());
-    main_v2(port);
-    thread runGUI(RunGUI, argc, argv);
-    runGUI.join();
+    main_v2(port,argc,argv);
+
     return 0;
 }

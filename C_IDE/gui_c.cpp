@@ -136,6 +136,9 @@ void GUI_C::print(string json) {
     }else if(code == APPLOG_PRINT_RESPONSE){
         string printsms = ObjectToJSON::GetJSONString("response", json);
         ui->aplogbox->append(printsms.c_str());
+    }else if(code == STD_PRINT_RESPONSE){
+        string printsms = ObjectToJSON::GetJSONString("response", json);
+        ui->stdoutbox->append(printsms.c_str());
     }
 
 }

@@ -11,6 +11,7 @@
 #include "gui_c.h"
 #include "iostream"
 #include "sstream"
+#include "float.h"
 #include "src/Socket/Client.h"
 #include "src/TypeConversion/Convert_Value.h"
 
@@ -95,7 +96,7 @@ public:
         // Verifica que la linea ingresada contenga un ;
         int ultpos = (stringlist.getLen()-1);
         if (stringlist.get(ultpos) != ";"){
-            response->setCode("100");
+            response->setCode("101");
             response->setResponse("FATAL ERROR:  ; WASN'T DETECTED");
             response->setPrint("FATAL ERROR:  ; WASN'T DETECTED");
             response->setAction("PRINT");
@@ -121,9 +122,9 @@ public:
                             if(Verify_Type(stringlist.get(0),value,Operator_list)){
                                 message->setValue(value);
                             }else{
-                                response->setCode("100");
-                                response->setResponse("ERROR: INGRESE UN VALOR ADECUADO AL TIPO DE DATO QUE DESEA CREAR");
-                                response->setPrint("ERROR: INGRESE UN VALOR ADECUADO AL TIPO DE DATO QUE DESEA CREAR");
+                                response->setCode("101");
+                                response->setResponse("ERROR: INGRESE UN VALOR CORRECTO AL TIPO DE DATO QUE DESEA CREAR O EL VALOR ESTA FUERA DEL RANGO PERMITIDO");
+                                response->setPrint("ERROR: INGRESE UN VALOR CORRECTO AL TIPO DE DATO QUE DESEA CREAR O EL VALOR ESTA FUERA DEL RANGO PERMITIDO");
                                 response->setAction("PRINT");
                                 return ObjectToJSON::NewMessageToJSON(response);
                             }
@@ -139,15 +140,15 @@ public:
                                 }
 
                             }else{
-                                response->setCode("100");
-                                response->setResponse("ERROR: INGRESE UN VALOR ADECUADO AL TIPO DE DATO QUE DESEA CREAR");
-                                response->setPrint("ERROR: INGRESE UN VALOR ADECUADO AL TIPO DE DATO QUE DESEA CREAR");
+                                response->setCode("101");
+                                response->setResponse("ERROR: INGRESE UN VALOR CORRECTO AL TIPO DE DATO QUE DESEA CREAR O EL VALOR ESTA FUERA DEL RANGO PERMITIDO");
+                                response->setPrint("ERROR: INGRESE UN VALOR CORRECTO AL TIPO DE DATO QUE DESEA CREAR O EL VALOR ESTA FUERA DEL RANGO PERMITIDO");
                                 response->setAction("PRINT");
                                 return ObjectToJSON::NewMessageToJSON(response);
                             }
                         }
                     } else{
-                        response->setCode("100");
+                        response->setCode("101");
                         response->setResponse("ERROR: EL NOMBRE DEL VALOR QUE DESEA CREAR NO ES VALIDO");
                         response->setPrint("ERROR: EL NOMBRE DEL VALOR QUE DESEA CREAR NO ES VALIDO");
                         response->setAction("PRINT");
@@ -162,7 +163,7 @@ public:
                             message->setValue(" ");
                         }
                     }else{
-                        response->setCode("100");
+                        response->setCode("101");
                         response->setResponse("ERROR CON EL OPERADOR A UTILIZAR");
                         response->setPrint("ERROR CON EL OPERADOR A UTILIZAR");
                         response->setAction("PRINT");
@@ -170,7 +171,7 @@ public:
                     }
                 }
             } else {
-                response->setCode("100");
+                response->setCode("101");
                 response->setPrint("FATAL ERROR: EL NOMBRE DE LA VARIABLE QUE INGRESO YA SE ENCUENTRA CREADO O NO ES VALIDO");
                 response->setResponse("FATAL ERROR: EL NOMBRE DE LA VARIABLE QUE INGRESO YA SE ENCUENTRA CREADO O NO ES VALIDO");
                 response->setAction("PRINT");
@@ -255,13 +256,11 @@ public:
             ss >> typedata;
             if (typedata == 0 or Point_search(value)) {
                 return false;
-            } else if (typedata >= -2147483648 and typedata <= 2147483647) {
+            } else if (typedata >= LONG_MIN and typedata <= LONG_MAX) {
                 if (type == "Integer") {
                     return true;
                 } else if(type == "Long") {
                     return true;
-                }else{
-                    return false;
                 }
             } else if (typedata >= INTMAX_MIN and typedata <= INTMAX_MAX) {
                 if (type == "Long") {
@@ -284,15 +283,13 @@ public:
             if (typedata1 == 0 or !Point_search(value)) {
                 cout << "\nEL TIPO DE DATO INGRESADO NO ES UN\n" << type << endl;
                 return false;
-            } else if (typedata1 >= 1.17549e-038 and typedata1 <= 3.40282e+038) {
+            } else if (typedata1 >= FLT_MIN and typedata1 <= FLT_MAX) {
                 if (type == "Float") {
                     return true;
-                } else if(type == "Long") {
+                } else if(type == "Double") {
                     return true;
-                }else{
-                    return false;
                 }
-            } else if (typedata1 >= 2.22507e-308 and typedata1 <= 1.79769e+308) {
+            } else if (typedata1 >= DBL_MIN and typedata1 <= DBL_MAX)  {
                 if (type == "Double") {
                     return true;
                 } else {
@@ -343,6 +340,7 @@ public:
         }
         return false;
     }
+
 
     static SimplyLinkedList<string> *SeparateOperator (string value){
         auto separate_list = new SimplyLinkedList<string>();
