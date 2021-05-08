@@ -34,7 +34,7 @@ public:
      * @return -1 if the socket could not connect
      * @author Sloan Kelly based on code retrieved from https://gist.github.com/codehoose/d7dea7010d041d52fb0f59cbe3826036
      */
-    int initClient()
+    int initClient(int port)
     {
         //	Create a socket
         sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -43,7 +43,7 @@ public:
             return 1;
         }
 
-        int port = 54000;
+
         string ipAddress = "127.0.0.1";
         sockaddr_in hint;
         hint.sin_family = AF_INET;

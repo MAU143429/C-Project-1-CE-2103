@@ -14,9 +14,9 @@ using namespace std;
 /**
  * @brief runs the client
  */
-void RunClient(){
+void RunClient(int port){
     cout << "\n THE CLIENT IS RUNNING \n" << endl;
-    Client::getInstance()->initClient();
+    Client::getInstance()->initClient(port);
 }
 /**
  * @brief method that runs the GUI
@@ -32,6 +32,12 @@ int RunGUI(int argc, char *argv[]){
     return QApplication::exec();
 
 }
+
+void main_v2(int port){
+    thread runC(RunClient,port);
+    runC.join();
+}
+
 /**
  * @brief the main method that runs the thread and the application
  * @param argc
@@ -40,11 +46,13 @@ int RunGUI(int argc, char *argv[]){
  */
 int main(int argc, char *argv[])
 {
-    thread runC(RunClient);
+    int port;
+    string userInput;
+    cout<< "Define the port of the client: " ;
+    getline(cin, userInput);
+    port = atoi(userInput.c_str());
+    main_v2(port);
     thread runGUI(RunGUI, argc, argv);
-
-    runC.join();
     runGUI.join();
-
     return 0;
 }
