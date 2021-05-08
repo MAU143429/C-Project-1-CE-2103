@@ -23,6 +23,7 @@ public:
     std::string line;
     Ui::GUI_C *ui;
     std::string message;
+    std::string stopsmsstring;
 
 private slots:
 

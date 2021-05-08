@@ -61,6 +61,18 @@ void GUI_C::on_stopbtn_clicked()
     ui->mem_box->clear();
     ui->stdoutbox->append("STOPPING EXECUTION");
     cont = 0;
+    auto *stopsms = new TypeMessage();
+    stopsms->setAction("STOP");
+    stopsmsstring = ObjectToJSON::NewMessageToJSON(stopsms);
+    Client::getInstance()->Send(stopsmsstring.c_str());
+    string response;
+    while(response.empty()){
+        response = Client::getInstance()->ReadString();
+    }
+    Client::getInstance()->setResponse("");
+    print(response);
+
+
 
 }
 /**
