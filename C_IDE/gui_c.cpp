@@ -45,6 +45,7 @@ void GUI_C::on_runbtn_clicked()
        print(response);
    }
    RFile.close();
+
    cont += 1;
 
 }
@@ -60,7 +61,7 @@ void GUI_C::on_stopbtn_clicked()
     ui->valuebox->clear();
     ui->mem_box->clear();
     ui->stdoutbox->append("STOPPING EXECUTION");
-    cont = 0;
+    cont = 1;
     auto *stopsms = new TypeMessage();
     stopsms->setAction("STOP");
     stopsmsstring = ObjectToJSON::NewMessageToJSON(stopsms);
@@ -98,7 +99,6 @@ void GUI_C::on_nextbtn_clicked()
         Client::getInstance()->setResponse("");
         print(response);
     }
-
     cont += 1;
 
 }
@@ -133,6 +133,9 @@ void GUI_C::print(string json) {
             ui->tagbox->append(name.c_str());
             ui->valuebox->append(value.c_str());
         }
+    }else if(code == APPLOG_PRINT_RESPONSE){
+        string printsms = ObjectToJSON::GetJSONString("response", json);
+        ui->aplogbox->append(printsms.c_str());
     }
 
 }
