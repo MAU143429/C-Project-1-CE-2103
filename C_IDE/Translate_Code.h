@@ -229,7 +229,7 @@ public:
 
         while (counter < txt.length()) {
             character = txt[counter];
-            if (character == '.' or character == ',') {
+            if (character == '.') {
                 return true;
             } else {
                 character = ' ';
@@ -387,13 +387,15 @@ public:
         float varfloat,totalfloat;
         double vardouble,totaldouble;
         long varlong,totallong;
+        string resulti,resultf,resultd,resultl;
+        std::stringstream ii,ff,ll,dd,pp;
 
         while(cont < separatelist->getLen()){
             if(isNum(separatelist->get(cont))){
-
                 if(type == "Integer"){
-                    varint = Cast_to_Type::Cast_int<int>(separatelist->get(cont).c_str());
-
+                    ii << separatelist->get(cont);
+                    ii >> varfloat;
+                    ii.clear();
                     if(cont == 0){
                         totalint = varint;
                     }else {
@@ -408,7 +410,9 @@ public:
                         }
                     }
                 }else if(type == "Long"){
-                    varlong = Cast_to_Type::Cast_long<long>(separatelist->get(cont).c_str());
+                    ll << separatelist->get(cont);
+                    ll >> varfloat;
+                    ll.clear();
                     if(cont == 0){
                         totallong = varlong;
                     }else {
@@ -423,10 +427,13 @@ public:
                         }
                     }
                 }else if(type == "Float"){
-                    varfloat = Cast_to_Type::Cast_float<float>(separatelist->get(cont).c_str());
-                    cout << "CASTEO A FLOAT" << varfloat << endl;
+                    ff << separatelist->get(cont);
+                    ff >> varfloat;
+                    ff.clear();
+
                     if(cont == 0){
                         totalfloat = varfloat;
+
                     }else {
                         if (separatelist->get(cont - 1) == "+") {
                             totalfloat += varfloat;
@@ -438,9 +445,12 @@ public:
                             totalfloat *= varfloat;
                         }
                     }
+                    cout<<"VALOR DEL VARFLOAT = "<<varfloat<<endl;
+                    cout<<"VALOR DEL TOTALFLOAT = "<<totalfloat<<endl;
                 }else if(type == "Double"){
-                    vardouble = Cast_to_Type::Cast_double<double>(separatelist->get(cont).c_str());
-                    cout << "CASTEO A DOUBLE" << varfloat << endl;
+                    dd << separatelist->get(cont);
+                    dd >> varfloat;
+                    dd.clear();
                     if(cont == 0){
                         totaldouble = vardouble;
                     }else {
@@ -461,18 +471,27 @@ public:
             cont += 2;
         }
         if(type == "Integer"){
-            cout << to_string(totalint) << endl;
-            return to_string(totalint);
+            pp << totalint;
+            pp >> resulti;
+            cout<<resulti;
+            return resulti;
         }else if(type == "Long"){
-            cout << to_string(totallong) << endl;
-            return to_string(totallong);
+            pp << totallong;
+            pp >> resultl;
+            cout<<resultl;
+            return resultl;
         }else if(type == "Float"){
-            cout << to_string(totalfloat) << endl;
-            return to_string(totalfloat);
+            pp << totalfloat;
+            pp >> resultf;
+            cout<<resultf;
+            return resultf;
         }else if(type == "Double"){
-            cout << to_string(totaldouble) << endl;
-            return to_string(totaldouble);
+            pp << totaldouble;
+            pp >> resultd;
+            cout<<resultd;
+            return resultd;
         }
+
     }
 
     static bool isNum(string num) {
@@ -534,7 +553,6 @@ public:
         Number_list->append("8");
         Number_list->append("9");
         Number_list->append(".");
-        Number_list->append(",");
         SimplyLinkedList<string> processedLine = Readline(std::move(line));
         return Decodify_line(processedLine);
     }
