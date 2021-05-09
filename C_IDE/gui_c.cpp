@@ -31,19 +31,21 @@ void GUI_C::on_runbtn_clicked()
    MyFile.close();
    ifstream RFile("code.txt");
    getline(RFile,line);
-   message = Translate_Code::compile(line);
-   cout<<message<<endl;
-   if(ObjectToJSON::GetJSONString("action",message) == "PRINT"){
-       print(message);
-   }else{
-       Client::getInstance()->Send(message.c_str());
-       string response;
-       while(response.empty()){
-           response = Client::getInstance()->ReadString();
-       }
-       Client::getInstance()->setResponse("");
-       print(response);
-   }
+    if(!line.empty()){
+        message = Translate_Code::compile(line);
+        cout<<message<<endl;
+        if(ObjectToJSON::GetJSONString("action",message) == "PRINT"){
+            print(message);
+        }else{
+            Client::getInstance()->Send(message.c_str());
+            string response;
+            while(response.empty()){
+                response = Client::getInstance()->ReadString();
+            }
+            Client::getInstance()->setResponse("");
+            print(response);
+        }
+    }
    RFile.close();
 
    cont += 1;
@@ -86,18 +88,21 @@ void GUI_C::on_nextbtn_clicked()
     for(int i = 1; i <= cont ; ++i){
         getline (MyReadFile, line);
     }
-    message = Translate_Code::compile(line);
-    cout<<message<<endl;
-    if(ObjectToJSON::GetJSONString("action",message) == "PRINT"){
-        print(message);
-    }else{
-        Client::getInstance()->Send(message.c_str());
-        string response;
-        while(response.empty()){
-            response = Client::getInstance()->ReadString();
+
+    if(!line.empty()){
+        message = Translate_Code::compile(line);
+        cout<<message<<endl;
+        if(ObjectToJSON::GetJSONString("action",message) == "PRINT"){
+            print(message);
+        }else{
+            Client::getInstance()->Send(message.c_str());
+            string response;
+            while(response.empty()){
+                response = Client::getInstance()->ReadString();
+            }
+            Client::getInstance()->setResponse("");
+            print(response);
         }
-        Client::getInstance()->setResponse("");
-        print(response);
     }
     cont += 1;
 
@@ -108,6 +113,7 @@ void GUI_C::on_nextbtn_clicked()
 void GUI_C::on_clearbtn_clicked()
 {
     ui->aplogbox->clear();
+
 
 }
 /**

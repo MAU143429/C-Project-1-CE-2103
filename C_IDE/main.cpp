@@ -38,6 +38,7 @@ void main_v2(int port,int argc, char *argv[]){
     thread runGUI(RunGUI, argc, argv);
     runGUI.join();
     runC.join();
+
 }
 
 /**
@@ -49,10 +50,6 @@ void main_v2(int port,int argc, char *argv[]){
 int main(int argc, char *argv[])
 {
 
-    cout<< DBL_MIN <<endl;
-    cout<< DBL_MAX <<endl;
-    cout<< FLT_MIN<<endl;
-    cout<< FLT_MAX <<endl;
 
     int port;
     string userInput;

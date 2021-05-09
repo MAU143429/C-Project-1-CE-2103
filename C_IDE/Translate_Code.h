@@ -229,7 +229,7 @@ public:
 
         while (counter < txt.length()) {
             character = txt[counter];
-            if (character == '.') {
+            if (character == '.' or character == ',') {
                 return true;
             } else {
                 character = ' ';
@@ -281,7 +281,7 @@ public:
             ss >> typedata1;
 
             if (typedata1 == 0 or !Point_search(value)) {
-                cout << "\nEL TIPO DE DATO INGRESADO NO ES UN\n" << type << endl;
+                cout << "\nEL TIPO DE DATO INGRESADO NO ES UN " << type << endl;
                 return false;
             } else if (typedata1 >= FLT_MIN and typedata1 <= FLT_MAX) {
                 if (type == "Float") {
@@ -393,6 +393,7 @@ public:
 
                 if(type == "Integer"){
                     varint = Cast_to_Type::Cast_int<int>(separatelist->get(cont).c_str());
+
                     if(cont == 0){
                         totalint = varint;
                     }else {
@@ -422,7 +423,8 @@ public:
                         }
                     }
                 }else if(type == "Float"){
-                    totalfloat = Cast_to_Type::Cast_float<float>(separatelist->get(cont).c_str());
+                    varfloat = Cast_to_Type::Cast_float<float>(separatelist->get(cont).c_str());
+                    cout << "CASTEO A FLOAT" << varfloat << endl;
                     if(cont == 0){
                         totalfloat = varfloat;
                     }else {
@@ -437,7 +439,8 @@ public:
                         }
                     }
                 }else if(type == "Double"){
-                    totaldouble = Cast_to_Type::Cast_double<double>(separatelist->get(cont).c_str());
+                    vardouble = Cast_to_Type::Cast_double<double>(separatelist->get(cont).c_str());
+                    cout << "CASTEO A DOUBLE" << varfloat << endl;
                     if(cont == 0){
                         totaldouble = vardouble;
                     }else {
@@ -458,12 +461,16 @@ public:
             cont += 2;
         }
         if(type == "Integer"){
+            cout << to_string(totalint) << endl;
             return to_string(totalint);
         }else if(type == "Long"){
+            cout << to_string(totallong) << endl;
             return to_string(totallong);
         }else if(type == "Float"){
+            cout << to_string(totalfloat) << endl;
             return to_string(totalfloat);
         }else if(type == "Double"){
+            cout << to_string(totaldouble) << endl;
             return to_string(totaldouble);
         }
     }
@@ -526,6 +533,8 @@ public:
         Number_list->append("7");
         Number_list->append("8");
         Number_list->append("9");
+        Number_list->append(".");
+        Number_list->append(",");
         SimplyLinkedList<string> processedLine = Readline(std::move(line));
         return Decodify_line(processedLine);
     }
