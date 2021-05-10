@@ -80,7 +80,7 @@ public:
     void Send(const char *msg) {
         int sendRes = send(sock, msg, strlen(msg), 0);
         if (sendRes == -1) {
-            std::cout << "Send message failed" << std::endl;
+            std::cout << "SEND MESSAGE FAILED " << std::endl;
         }
     }
 

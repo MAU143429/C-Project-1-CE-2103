@@ -93,29 +93,28 @@ public:
     static string Decodify_line(SimplyLinkedList<string> stringlist) {
         auto *message = new TypeMessage();
         auto *response = new TypeMessage();
-        // Verifica que la linea ingresada contenga un ;
+
         int ultpos = (stringlist.getLen()-1);
         if (stringlist.get(ultpos) != ";"){
             response->setCode("101");
-            response->setResponse("FATAL ERROR:  ; WASN'T DETECTED");
-            response->setPrint("FATAL ERROR:  ; WASN'T DETECTED");
+            response->setResponse("ERROR: EL ; NO FUE DETECTADO ");
+            response->setPrint("ERROR: EL  ; NO FUE DETECTADO ");
             response->setAction("PRINT");
             return ObjectToJSON::NewMessageToJSON(response);
 
         }
-        //Decodifica la linea de codigo
+
         if (Type_list->boolSearch(stringlist.get(0))) {
-            // Detecta que se quiere instancear una variable nueva
             message->setType(stringlist.get(0));
             message->setSize(getSize(stringlist.get(0)));
             message->setAction("CREATE");
-            // Verifica que la variable no haya sido creada antes
+
             if (!Type_list->boolSearch(stringlist.get(1))) {
                     message->setName(stringlist.get(1));
-                    // Verifica que la lista lleve un operador =
+
                 if (Operator_vlist->boolSearch(stringlist.get(2))) {
 
-                    // Verifica que el valor de la variable a ingresar tenga sentido
+
                     if (!Type_list->boolSearch(stringlist.get(3))) {
                         if(Operator_Verify(stringlist.get(3))){
                             string value = Solve(stringlist.get(3),stringlist.get(0));
@@ -450,8 +449,6 @@ public:
                     dd << separatelist->get(cont);
                     dd >> vardouble;
                     dd.clear();
-                    cout << vardouble <<endl;
-                    cout << totaldouble <<endl;
                     if(cont == 0){
                         totaldouble = vardouble;
                     }else {
@@ -474,22 +471,18 @@ public:
         if(type == "Integer"){
             pp << totalint;
             pp >> resulti;
-            cout<<resulti;
             return resulti;
         }else if(type == "Long"){
             pp << totallong;
             pp >> resultl;
-            cout<<resultl;
             return resultl;
         }else if(type == "Float"){
             pp << totalfloat;
             pp >> resultf;
-            cout<<resultf;
             return resultf;
         }else if(type == "Double"){
             pp << totaldouble;
             pp >> resultd;
-            cout<<resultd;
             return resultd;
         }
 
