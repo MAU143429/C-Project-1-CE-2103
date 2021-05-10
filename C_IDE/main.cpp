@@ -49,6 +49,8 @@ void main_v2(int port,int argc, char *argv[]){
  */
 int main(int argc, char *argv[])
 {
+    cout << DBL_MAX <<endl;
+    cout << DBL_MIN <<endl;
     int port;
     string userInput;
     cout<< "Define the port of the client: " ;

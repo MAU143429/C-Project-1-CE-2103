@@ -394,7 +394,7 @@ public:
             if(isNum(separatelist->get(cont))){
                 if(type == "Integer"){
                     ii << separatelist->get(cont);
-                    ii >> varfloat;
+                    ii >> varint;
                     ii.clear();
                     if(cont == 0){
                         totalint = varint;
@@ -411,7 +411,7 @@ public:
                     }
                 }else if(type == "Long"){
                     ll << separatelist->get(cont);
-                    ll >> varfloat;
+                    ll >> varlong;
                     ll.clear();
                     if(cont == 0){
                         totallong = varlong;
@@ -445,12 +445,13 @@ public:
                             totalfloat *= varfloat;
                         }
                     }
-                    cout<<"VALOR DEL VARFLOAT = "<<varfloat<<endl;
-                    cout<<"VALOR DEL TOTALFLOAT = "<<totalfloat<<endl;
+
                 }else if(type == "Double"){
                     dd << separatelist->get(cont);
-                    dd >> varfloat;
+                    dd >> vardouble;
                     dd.clear();
+                    cout << vardouble <<endl;
+                    cout << totaldouble <<endl;
                     if(cont == 0){
                         totaldouble = vardouble;
                     }else {
